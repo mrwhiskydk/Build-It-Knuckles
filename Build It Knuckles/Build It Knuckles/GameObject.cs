@@ -53,9 +53,7 @@ namespace Build_It_Knuckles
         /// <summary>
         /// The default constructor for a GameObject
         /// </summary>
-        /// <param name="content">Reference to a ContentManager for loading resources</param>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
-        /// <exception cref="Microsoft.Xna.Framework.Content.ContentLoadException">Thrown if a matching texture cant be found for spriteName</exception>
         public GameObject(string spriteName) : this(Vector2.Zero, spriteName)
         {
 
@@ -65,7 +63,6 @@ namespace Build_It_Knuckles
         /// Constructor that sets the starting position of the GameObject
         /// </summary>
         /// <param name="startPosition"></param>
-        /// <param name="content">Reference to a ContentManager for loading resources</param>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
         /// <exception cref="Microsoft.Xna.Framework.Content.ContentLoadException">Thrown if a matching texture cant be found for spriteName</exception>
         public GameObject(Vector2 startPosition, string spriteName)

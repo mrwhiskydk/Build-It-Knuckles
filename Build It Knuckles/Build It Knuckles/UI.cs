@@ -8,7 +8,7 @@ namespace Build_It_Knuckles
     /// <summary>
     /// Public Class that represents the default functionality and game logic of the UI PassiveGameObject
     /// </summary>
-    public class UI
+    public class UI : GameObjectPassive
     {
     }
 }
