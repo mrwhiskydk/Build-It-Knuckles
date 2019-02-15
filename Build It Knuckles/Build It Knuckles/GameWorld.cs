@@ -22,6 +22,8 @@ namespace Build_It_Knuckles
         private static GraphicsDeviceManager graphics;
 
         public static Worker knuckles;
+        public static TownHall townHall;
+        public static Resource Resource;
 
         public static Rectangle ScreenSize
         {
@@ -88,6 +90,8 @@ namespace Build_It_Knuckles
             font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             knuckles = new Worker();
+            townHall = new TownHall();
+            Resource = new Resource();
         }
 
 

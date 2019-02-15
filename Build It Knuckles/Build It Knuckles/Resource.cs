@@ -17,7 +17,7 @@ namespace Build_It_Knuckles
         /// </summary>
         /// <param name="startPosition">The default position of where the current Resource is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the Resource sprite</param>
-        public Resource(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
+        public Resource() : base(new Vector2(600, 100), "castle")
         {
         }
     }
