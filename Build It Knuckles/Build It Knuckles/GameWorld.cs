@@ -16,6 +16,10 @@ namespace Build_It_Knuckles
         private static List<GameObject> toBeAdded = new List<GameObject>();
         private static List<GameObject> toBeRemoved = new List<GameObject>();
 
+        public static List<GameObjectPassive> gameObjectPassive = new List<GameObjectPassive>();
+        private static List<GameObjectPassive> toBeAddedPassive = new List<GameObjectPassive>();
+        private static List<GameObjectPassive> toBeRemovedPassive = new List<GameObjectPassive>();
+
         private SpriteFont font;
         private Texture2D collisionTexture;
 
@@ -64,6 +68,16 @@ namespace Build_It_Knuckles
         public static void RemoveGameObject(GameObject go)
         {
             toBeRemoved.Add(go);
+        }
+
+        public static void AddGameObjectPassive(GameObjectPassive go)
+        {
+            toBeAddedPassive.Add(go);
+        }
+
+        public static void RemoveGameObjectPassive(GameObjectPassive go)
+        {
+            toBeRemovedPassive.Remove(go);
         }
 
         /// <summary>
@@ -129,6 +143,12 @@ namespace Build_It_Knuckles
                 }
             }
 
+            foreach(GameObjectPassive go in gameObjectPassive)
+            {
+                go.Update(gameTime);
+            }
+
+
             foreach (GameObject go in toBeRemoved)
             {
                 gameObjects.Remove(go);
@@ -139,6 +159,14 @@ namespace Build_It_Knuckles
             toBeAdded.Clear();
 
 
+            foreach(GameObjectPassive go in toBeRemovedPassive)
+            {
+                gameObjectPassive.Remove(go);
+            }
+            toBeRemovedPassive.Clear();
+
+            gameObjectPassive.AddRange(toBeAddedPassive);
+            toBeAddedPassive.Clear();
 
 
             base.Update(gameTime);
@@ -158,6 +186,11 @@ namespace Build_It_Knuckles
 #if DEBUG
                 DrawCollisionBox(go);
 #endif
+            }
+
+            foreach(GameObjectPassive go in gameObjectPassive)
+            {
+                go.Draw(spriteBatch);
             }
 
             spriteBatch.End();

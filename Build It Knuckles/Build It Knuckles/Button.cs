@@ -20,6 +20,16 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Button sprite</param>
         public Button(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
         {
+
+        }
+
+        /// <summary>
+        /// Updates the Button game logic
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }

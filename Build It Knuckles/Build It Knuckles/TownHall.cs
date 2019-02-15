@@ -21,5 +21,14 @@ namespace Build_It_Knuckles
         {
 
         }
+
+        /// <summary>
+        /// Updates the game logic of the TownHall
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }
