@@ -50,7 +50,7 @@ namespace Build_It_Knuckles
         {
             position = startPosition;
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            GameWorld.gameObjectsPassive.Add(this);
+            GameWorld.gameObjectPassive.Add(this);
         }
 
         /// <summary>

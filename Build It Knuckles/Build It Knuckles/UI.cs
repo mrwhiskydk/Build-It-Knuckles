@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Build_It_Knuckles
 {
@@ -10,5 +11,10 @@ namespace Build_It_Knuckles
     /// </summary>
     public class UI : GameObjectPassive
     {
+
+
+        public UI(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
+        {
+        }
     }
 }
