@@ -26,6 +26,8 @@ namespace Build_It_Knuckles
         private static GraphicsDeviceManager graphics;
 
         public static Worker knuckles;
+        public static TownHall townHall;
+        public static Resource Resource;
 
         public static Rectangle ScreenSize
         {
@@ -51,8 +53,8 @@ namespace Build_It_Knuckles
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 1020;   // set this value to the desired height of your window
+            graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             _content = Content;
@@ -102,6 +104,8 @@ namespace Build_It_Knuckles
             font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             knuckles = new Worker();
+            townHall = new TownHall();
+            Resource = new Resource();
         }
 
 
