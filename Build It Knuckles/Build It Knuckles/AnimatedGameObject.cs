@@ -29,7 +29,14 @@ namespace Build_It_Knuckles
 
         }
 
-        public AnimatedGameObject(int frameCount, float animationFPS) : base(startPostion, spriteName)
+        /// <summary>
+        /// Constructor that creates the amount of frames
+        /// </summary>
+        /// <param name="frameCount">How many frames in the spritesheet</param>
+        /// <param name="animationFPS">The speed the frames change</param>
+        /// <param name="startPostion">The start position</param>
+        /// <param name="spriteName">Name of the sprite</param>
+        public AnimatedGameObject(int frameCount, float animationFPS, Vector2 startPostion, string spriteName) : base(startPostion, spriteName)
         {
             this.animationFPS = animationFPS;
             animationRectangles = new Rectangle[frameCount];
