@@ -87,11 +87,9 @@ namespace Build_It_Knuckles
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("ExampleFont");
-            background = Content.Load<Texture2D>("stars");
+            font = Content.Load<SpriteFont>("Examplefont");
             exampleRect = new Rectangle(0, 0, 1920, 1020);
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-
         }
 
 
