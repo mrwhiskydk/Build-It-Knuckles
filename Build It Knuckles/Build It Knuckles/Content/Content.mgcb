@@ -25,12 +25,24 @@
 /processorParam:TextureFormat=Color
 /build:CollisionTexture.png
 
-#begin Examplefont.spritefont
+#begin ExampleFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Examplefont.spritefont
+/build:ExampleFont.spritefont
+
+#begin knuckles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:knuckles.png
 
 #begin knuckles.png
 /importer:TextureImporter

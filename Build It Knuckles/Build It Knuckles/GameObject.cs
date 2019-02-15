@@ -71,7 +71,7 @@ namespace Build_It_Knuckles
         public GameObject(Vector2 startPosition, string spriteName)
         {
             position = startPosition;
-            sprite = content.Load<Texture2D>(spriteName);
+            sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             GameWorld.AddGameObject(this);
         }
 

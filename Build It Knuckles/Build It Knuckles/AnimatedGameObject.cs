@@ -42,7 +42,7 @@ namespace Build_It_Knuckles
             animationRectangles = new Rectangle[frameCount];
             for (int i = 0; i < frameCount; i++)
             {
-                animationRectangles[i] = new Rectangle(i * (sprite.Width / frameCount), 0, (sprite.Width / frameCount), sprite.Height);
+                animationRectangles[i] = new Rectangle(i * (sprite.Width / frameCount), 0, (sprite.Width / frameCount), (sprite.Height/4));
             }
             currentAnimationIndex = 0;
         }
