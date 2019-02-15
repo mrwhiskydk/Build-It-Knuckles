@@ -20,5 +20,14 @@ namespace Build_It_Knuckles
         {
 
         }
+
+        /// <summary>
+        /// Updates the Worker game logic
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }

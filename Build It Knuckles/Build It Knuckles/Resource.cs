@@ -19,6 +19,16 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Resource sprite</param>
         public Resource(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
         {
+
+        }
+
+        /// <summary>
+        /// Updates the Resource game logic
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }

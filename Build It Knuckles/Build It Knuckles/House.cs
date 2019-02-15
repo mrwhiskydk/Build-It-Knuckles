@@ -20,6 +20,16 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the House sprite</param>
         public House(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
         {
+
+        }
+
+        /// <summary>
+        /// Updates the House game logic
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }

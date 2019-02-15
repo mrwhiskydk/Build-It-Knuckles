@@ -19,6 +19,16 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the TownHall sprite</param>
         public TownHall(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
         {
+
+        }
+
+        /// <summary>
+        /// Updates the game logic of the TownHall
+        /// </summary>
+        /// <param name="gameTime">Time elapsed since last call in the update</param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
