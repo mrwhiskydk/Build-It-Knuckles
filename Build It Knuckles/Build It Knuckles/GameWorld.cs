@@ -12,8 +12,6 @@ namespace Build_It_Knuckles
     public class GameWorld : Game
     {
         private SpriteBatch spriteBatch;
-        private Texture2D background;
-        private Rectangle exampleRect;
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> toBeAdded = new List<GameObject>();
         private static List<GameObject> toBeRemoved = new List<GameObject>();
@@ -22,6 +20,8 @@ namespace Build_It_Knuckles
         private Texture2D collisionTexture;
 
         private static GraphicsDeviceManager graphics;
+
+        public static Worker knuckles;
 
         public static Rectangle ScreenSize
         {
@@ -83,13 +83,11 @@ namespace Build_It_Knuckles
         /// </summary>
         protected override void LoadContent()
         {
-
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("Examplefont");
-            exampleRect = new Rectangle(0, 0, 1920, 1020);
+            font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+            knuckles = new Worker();
         }
 
 
@@ -150,7 +148,6 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(background, exampleRect, Color.White);
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);
