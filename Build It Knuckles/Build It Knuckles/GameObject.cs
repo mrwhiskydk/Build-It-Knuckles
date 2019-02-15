@@ -68,10 +68,11 @@ namespace Build_It_Knuckles
         /// <param name="content">Reference to a ContentManager for loading resources</param>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
         /// <exception cref="Microsoft.Xna.Framework.Content.ContentLoadException">Thrown if a matching texture cant be found for spriteName</exception>
-        public GameObject(Vector2 startPosition, ContentManager content, string spriteName)
+        public GameObject(Vector2 startPosition, string spriteName)
         {
             position = startPosition;
             sprite = content.Load<Texture2D>(spriteName);
+            GameWorld.AddGameObject(this);
         }
 
         /// <summary>
