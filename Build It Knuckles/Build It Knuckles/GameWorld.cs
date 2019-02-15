@@ -51,7 +51,7 @@ namespace Build_It_Knuckles
             graphics.PreferredBackBufferHeight = 1020;   // set this value to the desired height of your window
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
-            // _content = Content;
+            _content = Content;
         }
 
         public static void AddGameObject(GameObject go)
