@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace Build_It_Knuckles
 {
     /// <summary>
-    /// Public Class that represents the default functionality and game logic of the UI PassiveGameObject
+    /// Public Class that represents the default functionality and game logic of the UI GameObjectPassive
     /// </summary>
     public class UI : GameObjectPassive
     {

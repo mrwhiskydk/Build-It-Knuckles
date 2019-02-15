@@ -27,13 +27,13 @@ namespace Build_It_Knuckles
         public Vector2 position;
 
         /// <summary>
-        /// Property for the position of current GameObject
+        /// Property for the position of the current GameObjectPassive
         /// </summary>
         public Vector2 Position { get => position; set => position = value; }
 
 
         /// <summary>
-        /// The default constructor for a GameObject
+        /// The default constructor for a GameObjectPassive
         /// </summary>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
         public GameObjectPassive(string spriteName) : this(Vector2.Zero, spriteName)
@@ -42,7 +42,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Constructor that sets the starting position of the GameObject
+        /// Constructor that sets the starting position and sprite name of the GameObjectPassive
         /// </summary>
         /// <param name="startPosition">Start position</param>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
@@ -63,7 +63,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Detroys this GameObject
+        /// Method that removes the current GameObjectPassive from the game
         /// </summary>
         public virtual void Destroy()
         {
