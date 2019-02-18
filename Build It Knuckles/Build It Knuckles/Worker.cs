@@ -24,6 +24,7 @@ namespace Build_It_Knuckles
         /// Checks if the worker is in its work loop
         /// </summary>
         public bool working = false;
+
         private bool ignoreCollision = false;
         
         //Sets the moving speed amount for the current Worker GameObject
@@ -81,7 +82,6 @@ namespace Build_It_Knuckles
         {
             health = 100;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
-            resourceAmount = new List<int>();   //New resource list is created, for the current Worker GameObject, upon being added to the game
             occupied = false;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
@@ -139,7 +139,7 @@ namespace Build_It_Knuckles
         {
             while (occupied)
             {
-                resourceAmount.Add(10);
+                resourceAmount += 10;
                 testValue += 10;
                 Health -= 5;
                 Thread.Sleep(1000);
