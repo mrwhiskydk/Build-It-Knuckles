@@ -108,11 +108,6 @@ namespace Build_It_Knuckles
         public override void DoCollision(GameObject otherObject)
         {
             base.DoCollision(otherObject);
-        }
-
-        public override void DoCollision(GameObject otherObject)
-        {
-            base.DoCollision(otherObject);
 
             if (otherObject is Resource)
             {
