@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 
 namespace Build_It_Knuckles
 {
@@ -16,6 +17,7 @@ namespace Build_It_Knuckles
     {
         public bool selected = false;
 
+        private bool ignoreCollision = false;
         
         //Sets the moving speed amount for the current Worker GameObject
         private float movementSpeed;
@@ -23,7 +25,7 @@ namespace Build_It_Knuckles
         /// <summary>
         /// Resource List, that contains the value amount of resources, within the current Worker GameObject
         /// </summary>
-        private List<int> resourceAmount;
+        public List<int> resourceAmount;
 
         /// <summary>
         /// Sets an event, for when current Worker GameObject "dies".
@@ -31,7 +33,9 @@ namespace Build_It_Knuckles
         /// </summary>
         private event DeadEventhandler DeadEvent;
 
-        
+        Thread workingThread;
+
+        private bool occupied;
 
         //Defines the health variable of current Worker GameObject
         private int health;
@@ -57,16 +61,26 @@ namespace Build_It_Knuckles
             }
         }
 
+        private double workTime;
+        private float workDuration;
+
+        // ! TEST !
+        public int testValue = 0;
+
         /// <summary>
         /// Worker's Constructor that sets the frame count, animations player per second, the starting position and sprite name, of the current Worker GameObject
         /// </summary>
         public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
         {
             health = 100;   //Worker Health / Patience before running away, is set to X as default
-            movementSpeed = 15; //Worker moving speed amount is set to X as default
+            movementSpeed = 4; //Worker moving speed amount is set to X as default
             resourceAmount = new List<int>();   //New resource list is created, for the current Worker GameObject, upon being added to the game
-
+            occupied = false;
+            workingThread = new Thread(EnterResource);
+            workingThread.IsBackground = true;
             
+
+            workDuration = 5;   //Work duration amount is set to 5 as default, for the current Worker
         }
 
         /// <summary>
@@ -85,8 +99,9 @@ namespace Build_It_Knuckles
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
                 direction.Normalize();
-                position += direction * 4;
+                position += direction * movementSpeed;
             }
+
             base.Update(gameTime);
         }
 
@@ -101,6 +116,24 @@ namespace Build_It_Knuckles
             }
         }
 
+        private void EnterResource()
+        {
+            while (occupied)
+            {
+                resourceAmount.Add(10);
+                testValue += 10;
+                Health -= 5;
+                Thread.Sleep(1000);
+
+                if(testValue == 50)
+                {
+                    Vector2 rePos = new Vector2(600, 300);
+                    occupied = false;
+                }
+                
+            }         
+        }
+
         /// <summary>
         /// Collision Method, that checks wether or not the current Worker GameObject has collided with anohter GameObject's collision
         /// </summary>
@@ -109,9 +142,15 @@ namespace Build_It_Knuckles
         {
             base.DoCollision(otherObject);
 
-            if (otherObject is Resource)
+            if (otherObject is Resource && !ignoreCollision)
             {
+                occupied = true;
+                if (occupied)
+                {
+                    workingThread.Start();
+                }
 
+                ignoreCollision = true;
             }
         }
 

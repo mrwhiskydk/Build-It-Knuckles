@@ -174,7 +174,6 @@ namespace Build_It_Knuckles
             gameObjectPassive.AddRange(toBeAddedPassive);
             toBeAddedPassive.Clear();
 
-
             base.Update(gameTime);
         }
 
@@ -198,6 +197,9 @@ namespace Build_It_Knuckles
             {
                 go.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(font, $"Gold: {knuckles.testValue}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
 
             spriteBatch.End();
             base.Draw(gameTime);
