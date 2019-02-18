@@ -69,9 +69,6 @@ namespace Build_It_Knuckles
             }
         }
 
-        private double workTime;
-        private float workDuration;
-
         // ! TEST !
         public int testValue = 0;
 
@@ -85,9 +82,6 @@ namespace Build_It_Knuckles
             occupied = false;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
-            
-
-            workDuration = 5;   //Work duration amount is set to 5 as default, for the current Worker
         }
 
         /// <summary>
@@ -137,6 +131,10 @@ namespace Build_It_Knuckles
 
         private void EnterResource()
         {
+            GameWorld.Resource.ResourceSemaphore.WaitOne();
+
+            GameWorld.workerEnter = true;
+
             while (occupied)
             {
                 resourceAmount += 10;
@@ -146,7 +144,10 @@ namespace Build_It_Knuckles
 
                 if(testValue == 50)
                 {
-                    Vector2 rePos = new Vector2(600, 300);
+                    Vector2 rePos;
+                    rePos = new Vector2(600, 300);
+                    rePos.Normalize();
+                    GameWorld.Resource.ResourceSemaphore.Release();
                     occupied = false;
                 }
                 
