@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.Xna.Framework;
 
 namespace Build_It_Knuckles
@@ -11,6 +12,10 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Resource : GameObject
     {
+        /// <summary>
+        /// Semaphore Class that that contains the initial and maximum number amount of worker entries
+        /// </summary>
+        private Semaphore ResourceSemaphore;
 
         /// <summary>
         /// Resource's Constructor that sets the default starting position and sprite name of the current Resource GameObject
@@ -19,7 +24,8 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Resource sprite</param>
         public Resource() : base(new Vector2(600, 100), "castle")
         {
-
+            //Sets the Semaphores initial number of entries as 0, and a maximum capacity amount as 3
+            ResourceSemaphore = new Semaphore(0, 3);
         }
 
         /// <summary>
