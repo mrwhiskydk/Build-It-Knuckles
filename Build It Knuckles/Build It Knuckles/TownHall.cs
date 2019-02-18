@@ -17,7 +17,7 @@ namespace Build_It_Knuckles
         /// </summary>
         /// <param name="startPosition">The default position of where the TownHall is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the TownHall sprite</param>
-        public TownHall() : base(new Vector2(GameWorld.ScreenSize.Width/2, 600), "BigBlock")
+        public TownHall() : base(new Vector2(GameWorld.ScreenSize.Width/2, 600), "townhall")
         {
 
         }

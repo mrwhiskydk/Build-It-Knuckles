@@ -28,6 +28,7 @@ namespace Build_It_Knuckles
         public static Worker knuckles;
         public static TownHall townHall;
         public static Resource Resource;
+        public static Cursor mouse;
 
         public static Rectangle ScreenSize
         {
@@ -106,6 +107,7 @@ namespace Build_It_Knuckles
             knuckles = new Worker();
             townHall = new TownHall();
             Resource = new Resource();
+            mouse = new Cursor();
         }
 
 
