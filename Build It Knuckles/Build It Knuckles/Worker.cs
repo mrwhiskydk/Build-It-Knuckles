@@ -82,6 +82,7 @@ namespace Build_It_Knuckles
             occupied = false;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
+            workingThread.
         }
 
         /// <summary>
@@ -149,6 +150,7 @@ namespace Build_It_Knuckles
                 testValue += 10;
                 Health -= 5;
                 Thread.Sleep(1000);
+                
 
                 if(testValue == 50)
                 {                   
