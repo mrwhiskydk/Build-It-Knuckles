@@ -18,7 +18,7 @@ namespace Build_It_Knuckles
 
         
         //Sets the moving speed amount for the current Worker GameObject
-        private float movementSpeed;
+        private float movementSpeed = 4;
 
         /// <summary>
         /// Resource List, that contains the value amount of resources, within the current Worker GameObject
@@ -85,7 +85,7 @@ namespace Build_It_Knuckles
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
                 direction.Normalize();
-                position += direction * 4;
+                position += direction * movementSpeed;
             }
             base.Update(gameTime);
         }
