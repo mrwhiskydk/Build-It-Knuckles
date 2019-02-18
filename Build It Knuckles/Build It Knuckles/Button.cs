@@ -11,7 +11,7 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Button : GameObject
     {
-
+        
 
         /// <summary>
         /// Button's Constructor that sets the starting position and sprite name of the current Button GameObject
@@ -24,12 +24,37 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
+        /// The action that should be performed when the button is pressed
+        /// </summary>
+        public virtual void Action()
+        {
+
+        }
+
+        /// <summary>
         /// Updates the Button game logic
         /// </summary>
         /// <param name="gameTime">Time elapsed since last call in the update</param>
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+        }
+    }
+
+    public class ButtonBuyHouse : Button
+    {
+        public ButtonBuyHouse() : base(UI.buttonBuyHousePos, "house")
+        {
+
+        }
+
+        public override void Action()
+        {
+            base.Action();
+            if (TownHall.gold > 10 && TownHall.stone > 25 && TownHall.lumber > 25)
+            {
+                new House();
+            }
         }
     }
 }

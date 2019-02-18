@@ -107,11 +107,10 @@ namespace Build_It_Knuckles
             knuckles = new Worker();
             townHall = new TownHall();
             Resource = new Resource();
+            new ButtonBuyHouse();
+
+            //mouse/cursor needs to be initialized last
             mouse = new Cursor();
-            for (int i = 0; i < 4; i++)
-            {
-                new House();
-            }
         }
 
 
