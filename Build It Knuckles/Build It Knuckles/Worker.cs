@@ -185,6 +185,17 @@ namespace Build_It_Knuckles
 
                 ignoreCollision = true;
             }
+
+            if (otherObject is TownHall && ignoreCollision)
+            {
+                if (GameWorld.Resource.type == 1)
+                {
+                   TownHall.gold += resourceAmount;
+                }
+                resourceAmount = 0;
+                testValue = 0;
+                working = true;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
