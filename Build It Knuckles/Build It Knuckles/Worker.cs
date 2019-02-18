@@ -152,6 +152,7 @@ namespace Build_It_Knuckles
                 if(testValue == 50)
                 {
                     GameWorld.Resource.ResourceSemaphore.Release();
+                    GameWorld.workerLeft = true;
                     occupied = false;
                 }
                 

@@ -32,6 +32,8 @@ namespace Build_It_Knuckles
 
         // ! TEST !
         public static bool workerEnter = false;
+        // ! TEST !
+        public static bool workerLeft = false;
 
         public static Rectangle ScreenSize
         {
@@ -209,6 +211,11 @@ namespace Build_It_Knuckles
             if (workerEnter)
             {
                 spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            }
+
+            if (workerLeft)
+            {
+                spriteBatch.DrawString(font, "Worker Has Left the Mine!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             }
 
             spriteBatch.End();
