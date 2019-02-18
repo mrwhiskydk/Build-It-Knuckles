@@ -187,6 +187,10 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            spriteBatch.DrawString(font, $"Gold: {townHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, $"Stone: {townHall.coal}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, $"Lumber: {townHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, $"Food: {townHall.food}", new Vector2(100, 180), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);
