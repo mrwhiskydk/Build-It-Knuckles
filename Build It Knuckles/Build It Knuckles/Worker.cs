@@ -14,16 +14,23 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Worker : AnimatedGameObject
     {
+        /// <summary>
+        /// Checks if a worker is selected by the player or not.
+        /// </summary>
         public bool selected = false;
 
+        /// <summary>
+        /// Checks if the worker is in its work loop
+        /// </summary>
+        public bool working = false;
         
         //Sets the moving speed amount for the current Worker GameObject
-        private float movementSpeed = 4;
+        private float movementSpeed;
 
         /// <summary>
-        /// Resource List, that contains the value amount of resources, within the current Worker GameObject
+        /// The resource the worker is carrying.
         /// </summary>
-        private List<int> resourceAmount;
+        public int resourceAmount;
 
         /// <summary>
         /// Sets an event, for when current Worker GameObject "dies".
@@ -63,10 +70,7 @@ namespace Build_It_Knuckles
         public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
         {
             health = 100;   //Worker Health / Patience before running away, is set to X as default
-            movementSpeed = 15; //Worker moving speed amount is set to X as default
-            resourceAmount = new List<int>();   //New resource list is created, for the current Worker GameObject, upon being added to the game
-
-            
+            movementSpeed = 3; //Worker moving speed amount is set to X as default           
         }
 
         /// <summary>
@@ -78,16 +82,27 @@ namespace Build_It_Knuckles
             if (GameWorld.mouse.Click(this))
             {
                 selected = true;
+                working = false;
+            }
+            if (selected && GameWorld.mouse.Click(GameWorld.Resource))
+            {
+                selected = false;
+                working = true;
             }
 
-            if (selected && GameWorld.mouse.Click(GameWorld.Resource))
+            WorkLoop(gameTime);
+            base.Update(gameTime);
+        }
+
+        private void WorkLoop(GameTime gameTime)
+        {
+            if (working)
             {
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
-            base.Update(gameTime);
         }
 
         /// <summary>
