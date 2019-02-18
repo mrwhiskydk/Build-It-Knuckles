@@ -13,9 +13,9 @@ namespace Build_It_Knuckles
     public class Resource : GameObject
     {
         /// <summary>
-        /// Semaphore Class that that contains the initial and maximum number amount of worker entries
+        /// Semaphore Class that that contains & sets the initial and maximum amount of worker entries
         /// </summary>
-        private Semaphore ResourceSemaphore;
+        public Semaphore ResourceSemaphore = new Semaphore(0, 3);
 
         /// <summary>
         /// Resource's Constructor that sets the default starting position and sprite name of the current Resource GameObject
@@ -24,8 +24,7 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Resource sprite</param>
         public Resource() : base(new Vector2(600, 100), "castle")
         {
-            //Sets the Semaphores initial number of entries as 0, and a maximum capacity amount as 3
-            ResourceSemaphore = new Semaphore(0, 3);
+            ResourceSemaphore.Release(3);            
         }
 
         /// <summary>

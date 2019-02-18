@@ -15,17 +15,25 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Worker : AnimatedGameObject
     {
+        /// <summary>
+        /// Checks if a worker is selected by the player or not.
+        /// </summary>
         public bool selected = false;
+
+        /// <summary>
+        /// Checks if the worker is in its work loop
+        /// </summary>
+        public bool working = false;
 
         private bool ignoreCollision = false;
         
         //Sets the moving speed amount for the current Worker GameObject
-        private float movementSpeed = 4;
+        private float movementSpeed;
 
         /// <summary>
-        /// Resource List, that contains the value amount of resources, within the current Worker GameObject
+        /// The resource the worker is carrying.
         /// </summary>
-        public List<int> resourceAmount;
+        public int resourceAmount = 0;
 
         /// <summary>
         /// Sets an event, for when current Worker GameObject "dies".
@@ -61,9 +69,6 @@ namespace Build_It_Knuckles
             }
         }
 
-        private double workTime;
-        private float workDuration;
-
         // ! TEST !
         public int testValue = 0;
 
@@ -74,13 +79,9 @@ namespace Build_It_Knuckles
         {
             health = 100;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
-            resourceAmount = new List<int>();   //New resource list is created, for the current Worker GameObject, upon being added to the game
             occupied = false;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
-            
-
-            workDuration = 5;   //Work duration amount is set to 5 as default, for the current Worker
         }
 
         /// <summary>
@@ -92,12 +93,32 @@ namespace Build_It_Knuckles
             if (GameWorld.mouse.Click(this))
             {
                 selected = true;
+                working = false;
+            }
+            if (selected && GameWorld.mouse.Click(GameWorld.Resource))
+            {
+                selected = false;
+                working = true;
             }
 
-            if (selected && GameWorld.mouse.Click(GameWorld.Resource))
+            WorkLoop(gameTime);
+            base.Update(gameTime);
+        }
+
+        private void WorkLoop(GameTime gameTime)
+        {           
+            
+            if (working && testValue < 50)
             {
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
+                direction.Normalize();
+                position += direction * movementSpeed;
+            }
+            else if (!working && testValue >= 50)
+            {
+                Vector2 direction;
+                direction = GameWorld.townHall.Position - GameWorld.Resource.Position;
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
@@ -118,20 +139,31 @@ namespace Build_It_Knuckles
 
         private void EnterResource()
         {
+            GameWorld.Resource.ResourceSemaphore.WaitOne();
+
+            GameWorld.workerEnter = true;
+
             while (occupied)
             {
-                resourceAmount.Add(10);
+                resourceAmount += 10;
                 testValue += 10;
                 Health -= 5;
                 Thread.Sleep(1000);
 
                 if(testValue == 50)
-                {
-                    Vector2 rePos = new Vector2(600, 300);
+                {                   
+                    GameWorld.Resource.ResourceSemaphore.Release();
+                    GameWorld.workerLeft = true;                   
                     occupied = false;
                 }
                 
             }         
+        }
+
+        private void InsideResource()
+        {
+            working = false;
+            this.position = GameWorld.Resource.Position;
         }
 
         /// <summary>
@@ -144,6 +176,7 @@ namespace Build_It_Knuckles
 
             if (otherObject is Resource && !ignoreCollision)
             {
+                InsideResource();
                 occupied = true;
                 if (occupied)
                 {
@@ -160,7 +193,7 @@ namespace Build_It_Knuckles
 
             if (selected == false)
             {
-                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0f);
+                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0);
             }
             else
             {
