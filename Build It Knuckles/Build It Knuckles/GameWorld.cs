@@ -30,6 +30,9 @@ namespace Build_It_Knuckles
         public static Resource Resource;
         public static Cursor mouse;
 
+        // ! TEST !
+        public static bool workerEnter = false;
+
         public static Rectangle ScreenSize
         {
             get
@@ -199,6 +202,10 @@ namespace Build_It_Knuckles
 
             spriteBatch.DrawString(font, $"Gold: {knuckles.testValue}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
+            if (workerEnter)
+            {
+                spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
