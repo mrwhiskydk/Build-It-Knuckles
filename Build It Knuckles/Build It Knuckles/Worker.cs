@@ -144,10 +144,8 @@ namespace Build_It_Knuckles
 
                 if(testValue == 50)
                 {
-                    Vector2 rePos;
-                    rePos = new Vector2(600, 300);
-                    rePos.Normalize();
                     GameWorld.Resource.ResourceSemaphore.Release();
+                    GameWorld.workerLeft = true;
                     occupied = false;
                 }
                 
