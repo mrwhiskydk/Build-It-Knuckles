@@ -12,12 +12,19 @@ namespace Build_It_Knuckles
     public class TownHall : GameObject
     {
 
+        public int gold;
+        public int coal;
+        public int lumber;
+        public int food;
+
+        public static Vector2 pos = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);
+
         /// <summary>
         /// The TownHall Constructor, that sets the default starting position and sprite name of the current TownHall GameObject
         /// </summary>
         /// <param name="startPosition">The default position of where the TownHall is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the TownHall sprite</param>
-        public TownHall() : base(new Vector2(GameWorld.ScreenSize.Width/2, 600), "BigBlock")
+        public TownHall() : base(pos, "townhall")
         {
 
         }
