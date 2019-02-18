@@ -9,8 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Build_It_Knuckles
 {
+    public delegate void BuyHouseHandler();
+
     public class Cursor : GameObject
     {
+        public event BuyHouseHandler BuyHouse;
+
+        private MouseState oldMouseState, currentMouseState;
+
         public Cursor() : base("Hand")
         {
 
@@ -36,7 +42,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Check if we have clicked on an object
+        /// Perform a check to see if we have clicked on the object we are calling this method from
         /// </summary>
         /// <param name="obj">The object to check if we have clicked on</param>
         /// <returns>Boolean: true or false</returns>
@@ -47,6 +53,22 @@ namespace Build_It_Knuckles
                 return true;
             }
             return false;
+        }
+
+        public override void DoCollision(GameObject otherObject)
+        {
+            base.DoCollision(otherObject);
+
+            oldMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+            {
+                if (otherObject is Button)
+                {
+                    Button b = (Button)otherObject;
+                    b.Action();
+                }
+            }
         }
     }
 }
