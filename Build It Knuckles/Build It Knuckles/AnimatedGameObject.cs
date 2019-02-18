@@ -9,11 +9,11 @@ namespace Build_It_Knuckles
 {
     public class AnimatedGameObject : GameObject
     {
-        Rectangle[] animationRectangles;
+        protected Rectangle[] animationRectangles;
 
-        float animationFPS = 10;
-        int currentAnimationIndex = 0;
-        double timeElapsed = 0;
+        protected float animationFPS = 10;
+        protected int currentAnimationIndex = 0;
+        protected double timeElapsed = 0;
 
 
         public override Rectangle CollisionBox
