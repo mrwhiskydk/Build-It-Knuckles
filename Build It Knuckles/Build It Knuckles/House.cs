@@ -23,7 +23,7 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the House sprite</param>
         public House() : base(housepos[houses], "house")
         {
-            houses++;
+            houses++; 
         }
 
         /// <summary>
