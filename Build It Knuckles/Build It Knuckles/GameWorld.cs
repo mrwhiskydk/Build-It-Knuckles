@@ -108,6 +108,10 @@ namespace Build_It_Knuckles
             townHall = new TownHall();
             Resource = new Resource();
             mouse = new Cursor();
+            for (int i = 0; i < 4; i++)
+            {
+                new House();
+            }
         }
 
 

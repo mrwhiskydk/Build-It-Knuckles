@@ -14,7 +14,8 @@ namespace Build_It_Knuckles
         static int houses;
         private static int thx = (int)TownHall.pos.X;
         private static int thy = (int)TownHall.pos.Y;
-        private static Vector2[] housepos = { new Vector2(thx - 100, thy), new Vector2(thx + 100, thy), new Vector2(thx - 200, thy), new Vector2(thx + 200, thy) };
+        private static int xSpacing = 150;
+        private static Vector2[] housepos = { new Vector2(thx - xSpacing, thy), new Vector2(thx + xSpacing, thy), new Vector2(thx - xSpacing*2, thy), new Vector2(thx + xSpacing*2, thy) };
 
         /// <summary>
         /// The House's Constructor that sets the starting position and sprite name of the current House GameObject
