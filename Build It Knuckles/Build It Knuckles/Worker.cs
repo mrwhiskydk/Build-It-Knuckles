@@ -28,6 +28,8 @@ namespace Build_It_Knuckles
         /// </summary>
         private event DeadEventhandler DeadEvent;
 
+        
+
         //Defines the health variable of current Worker GameObject
         private int health;
 
@@ -60,6 +62,8 @@ namespace Build_It_Knuckles
             health = 100;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 15; //Worker moving speed amount is set to X as default
             resourceAmount = new List<int>();   //New resource list is created, for the current Worker GameObject, upon being added to the game
+
+            
         }
 
         /// <summary>
