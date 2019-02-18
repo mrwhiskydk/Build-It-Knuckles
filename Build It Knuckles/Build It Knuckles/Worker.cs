@@ -44,6 +44,7 @@ namespace Build_It_Knuckles
         Thread workingThread;
 
         private bool occupied;
+        private bool alive;
 
         //Defines the health variable of current Worker GameObject
         private int health;
@@ -80,9 +81,11 @@ namespace Build_It_Knuckles
             health = 100;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;
+            alive = true;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
-            workingThread.
+
+            DeadEvent += ReactToDead;
         }
 
         /// <summary>
@@ -103,6 +106,7 @@ namespace Build_It_Knuckles
             }
 
             WorkLoop(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -144,22 +148,30 @@ namespace Build_It_Knuckles
 
             GameWorld.workerEnter = true;
 
-            while (occupied)
-            {
-                resourceAmount += 10;
-                testValue += 10;
-                Health -= 5;
-                Thread.Sleep(1000);
-                
+            while (alive)
+            {                
 
-                if(testValue == 50)
-                {                   
-                    GameWorld.Resource.ResourceSemaphore.Release();
-                    GameWorld.workerLeft = true;                   
-                    occupied = false;
+                while (occupied)
+                {
+                    resourceAmount += 10;
+                    testValue += 10;
+                    Health -= 5;
+                    Thread.Sleep(1000);
+
+                    if (testValue == 50)
+                    {
+                        GameWorld.Resource.ResourceSemaphore.Release();
+                        GameWorld.workerLeft = true;
+                        occupied = false;
+                    }
                 }
-                
-            }         
+            }           
+        }
+
+        private void ReactToDead(Worker worker)
+        {
+            alive = false;
+            GameWorld.RemoveGameObject(this);
         }
 
         private void InsideResource()
@@ -186,6 +198,17 @@ namespace Build_It_Knuckles
                 }
 
                 ignoreCollision = true;
+            }
+
+            if (otherObject is TownHall && ignoreCollision)
+            {
+                if (GameWorld.Resource.type == 1)
+                {
+                   TownHall.gold += resourceAmount;
+                }
+                resourceAmount = 0;
+                testValue = 0;
+                working = true;
             }
         }
 

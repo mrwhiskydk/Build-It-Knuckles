@@ -111,7 +111,7 @@ namespace Build_It_Knuckles
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             knuckles = new Worker();
             townHall = new TownHall();
-            Resource = new Resource();
+            Resource = new Resource(1);
             new ButtonBuyHouse();
 
             //mouse/cursor needs to be initialized last
@@ -206,6 +206,7 @@ namespace Build_It_Knuckles
                 go.Draw(spriteBatch);
             }
 
+            spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Gold: {knuckles.testValue}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
             if (workerEnter)
