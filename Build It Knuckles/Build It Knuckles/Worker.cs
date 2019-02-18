@@ -33,7 +33,7 @@ namespace Build_It_Knuckles
         /// <summary>
         /// The resource the worker is carrying.
         /// </summary>
-        public int resourceAmount;
+        public int resourceAmount = 0;
 
         /// <summary>
         /// Sets an event, for when current Worker GameObject "dies".
@@ -107,10 +107,17 @@ namespace Build_It_Knuckles
 
         private void WorkLoop(GameTime gameTime)
         {
-            if (working)
+            if (working && testValue < 50)
             {
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
+                direction.Normalize();
+                position += direction * movementSpeed;
+            }
+            else if (working && testValue >= 50)
+            {
+                Vector2 direction;
+                direction = GameWorld.townHall.Position - position;
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
@@ -144,9 +151,6 @@ namespace Build_It_Knuckles
 
                 if(testValue == 50)
                 {
-                    Vector2 rePos;
-                    rePos = new Vector2(600, 300);
-                    rePos.Normalize();
                     GameWorld.Resource.ResourceSemaphore.Release();
                     occupied = false;
                 }
@@ -180,11 +184,11 @@ namespace Build_It_Knuckles
 
             if (selected == false)
             {
-                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0f);
+                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 1f);
             }
             else
             {
-                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.Blue, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0f);
+                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.Blue, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 1f);
             }
         }
     }
