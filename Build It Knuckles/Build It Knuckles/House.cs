@@ -11,7 +11,7 @@ namespace Build_It_Knuckles
     /// </summary>
     public class House : GameObject
     {
-        static int houses;
+        public static int houses;
         private static int thx = (int)TownHall.pos.X;
         private static int thy = (int)TownHall.pos.Y;
         private static int xSpacing = 150;

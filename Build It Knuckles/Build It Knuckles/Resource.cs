@@ -17,14 +17,16 @@ namespace Build_It_Knuckles
         /// </summary>
         public Semaphore ResourceSemaphore = new Semaphore(0, 3);
 
+        public int type;
         /// <summary>
         /// Resource's Constructor that sets the default starting position and sprite name of the current Resource GameObject
         /// </summary>
         /// <param name="startPosition">The default position of where the current Resource is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the Resource sprite</param>
-        public Resource() : base(new Vector2(600, 100), "castle")
+        public Resource(int type) : base(new Vector2(600, 100), "castle")
         {
-            ResourceSemaphore.Release(3);            
+            ResourceSemaphore.Release(3);
+            this.type = type;
         }
 
         /// <summary>
