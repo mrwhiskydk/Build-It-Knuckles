@@ -66,6 +66,24 @@ namespace Build_It_Knuckles
 
         }
 
+        /// <summary>
+        /// Method to change the sprite of an animated gameobject
+        /// </summary>
+        /// <param name="frameCount">How many frames in the spritesheet</param>
+        /// <param name="spriteName">Name of the sprite</param>
+        public void State(int frameCount, string spriteName)
+        {
+            if (sprite.Name != spriteName) //Make sure its not the same sprite so we dont keep "resetting" the sprite to frame 1 never having any animation
+            {
+                sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+                animationRectangles = new Rectangle[frameCount];
+                for (int i = 0; i < frameCount; i++)
+                {
+                    animationRectangles[i] = new Rectangle(i * (sprite.Width / frameCount), 0, (sprite.Width / frameCount), sprite.Height);
+                }
+                currentAnimationIndex = 0;
+            }
+        }
 
 
         public override void Draw(SpriteBatch spriteBatch)
