@@ -16,7 +16,7 @@ namespace Build_It_Knuckles
 
         }
 
-        /// <summary>
+        /// <summary> 
         /// Updates the position of the crosshair to the mouse position
         /// </summary>
         /// <param name="gameTime">Time elapsed since last call in the update</param>
