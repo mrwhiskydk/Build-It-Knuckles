@@ -106,7 +106,8 @@ namespace Build_It_Knuckles
         }
 
         private void WorkLoop(GameTime gameTime)
-        {
+        {           
+            
             if (working && testValue < 50)
             {
                 Vector2 direction;
@@ -114,10 +115,10 @@ namespace Build_It_Knuckles
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
-            else if (working && testValue >= 50)
+            else if (!working && testValue >= 50)
             {
                 Vector2 direction;
-                direction = GameWorld.townHall.Position - position;
+                direction = GameWorld.townHall.Position - GameWorld.Resource.Position;
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
@@ -150,13 +151,19 @@ namespace Build_It_Knuckles
                 Thread.Sleep(1000);
 
                 if(testValue == 50)
-                {
+                {                   
                     GameWorld.Resource.ResourceSemaphore.Release();
-                    GameWorld.workerLeft = true;
+                    GameWorld.workerLeft = true;                   
                     occupied = false;
                 }
                 
             }         
+        }
+
+        private void InsideResource()
+        {
+            working = false;
+            this.position = GameWorld.Resource.Position;
         }
 
         /// <summary>
@@ -169,6 +176,7 @@ namespace Build_It_Knuckles
 
             if (otherObject is Resource && !ignoreCollision)
             {
+                InsideResource();
                 occupied = true;
                 if (occupied)
                 {
