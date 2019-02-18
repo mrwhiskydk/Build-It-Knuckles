@@ -12,10 +12,10 @@ namespace Build_It_Knuckles
     public class TownHall : GameObject
     {
 
-        public int gold;
-        public int coal;
-        public int lumber;
-        public int food;
+        public static int gold;
+        public static int stone;
+        public static int lumber;
+        public static int food;
 
         public static Vector2 pos = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);
 

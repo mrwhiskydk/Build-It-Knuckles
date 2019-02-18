@@ -107,11 +107,10 @@ namespace Build_It_Knuckles
             knuckles = new Worker();
             townHall = new TownHall();
             Resource = new Resource();
+            new ButtonBuyHouse();
+
+            //mouse/cursor needs to be initialized last
             mouse = new Cursor();
-            for (int i = 0; i < 4; i++)
-            {
-                new House();
-            }
         }
 
 
@@ -174,7 +173,6 @@ namespace Build_It_Knuckles
             gameObjectPassive.AddRange(toBeAddedPassive);
             toBeAddedPassive.Clear();
 
-
             base.Update(gameTime);
         }
 
@@ -202,6 +200,9 @@ namespace Build_It_Knuckles
             {
                 go.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(font, $"Gold: {knuckles.testValue}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
 
             spriteBatch.End();
             base.Draw(gameTime);
