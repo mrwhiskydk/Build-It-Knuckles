@@ -20,6 +20,8 @@ namespace Build_It_Knuckles
         /// </summary>
         public bool selected = false;
 
+        private bool startWork = false;
+
         /// <summary>
         /// Checks if the worker is in its work loop
         /// </summary>
@@ -61,6 +63,7 @@ namespace Build_It_Knuckles
             }
             set
             {
+
                 health = value; //Sets the health variable as its value
                 //Checks if current Worker health is at or below a value of 0
                 if(health <= 0)
@@ -70,15 +73,12 @@ namespace Build_It_Knuckles
             }
         }
 
-        // ! TEST !
-        public int testValue = 0;
-
         /// <summary>
         /// Worker's Constructor that sets the frame count, animations player per second, the starting position and sprite name, of the current Worker GameObject
         /// </summary>
         public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
         {
-            health = 100;   //Worker Health / Patience before running away, is set to X as default
+            health = 50;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;
             alive = true;
@@ -105,7 +105,7 @@ namespace Build_It_Knuckles
                 working = true;
             }
 
-            WorkLoop(gameTime);
+            WorkLoop(gameTime);           
 
             base.Update(gameTime);
         }
@@ -113,14 +113,14 @@ namespace Build_It_Knuckles
         private void WorkLoop(GameTime gameTime)
         {           
             
-            if (working && testValue < 50)
+            if (working && resourceAmount < 50 && alive)
             {
                 Vector2 direction;
                 direction = GameWorld.Resource.Position - position;
                 direction.Normalize();
                 position += direction * movementSpeed;
             }
-            else if (!working && testValue >= 50)
+            else if (!working && resourceAmount >= 50 && alive)
             {
                 Vector2 direction;
                 direction = GameWorld.townHall.Position - GameWorld.Resource.Position;
@@ -150,18 +150,14 @@ namespace Build_It_Knuckles
 
             while (alive)
             {                
-
                 while (occupied)
                 {
                     resourceAmount += 10;
-                    testValue += 10;
                     Health -= 5;
                     Thread.Sleep(1000);
 
-                    if (testValue == 50)
-                    {
-                        GameWorld.Resource.ResourceSemaphore.Release();
-                        GameWorld.workerLeft = true;
+                    if (resourceAmount == 50)
+                    {                                             
                         occupied = false;
                     }
                 }
@@ -171,6 +167,16 @@ namespace Build_It_Knuckles
         private void ReactToDead(Worker worker)
         {
             alive = false;
+
+            GameWorld.workerLeft = true;
+            GameWorld.Resource.ResourceSemaphore.Release();
+
+            Vector2 direction;
+            direction = new Vector2(0, 0) - position;
+            direction.Normalize();
+            position += direction * movementSpeed;
+
+
             GameWorld.RemoveGameObject(this);
         }
 
@@ -189,11 +195,13 @@ namespace Build_It_Knuckles
             base.DoCollision(otherObject);
 
             if (otherObject is Resource && !ignoreCollision)
-            {
+            {                
+
                 InsideResource();
                 occupied = true;
-                if (occupied)
+                if (occupied && !startWork)
                 {
+                    startWork = true;
                     workingThread.Start();
                 }
 
@@ -207,8 +215,8 @@ namespace Build_It_Knuckles
                    TownHall.gold += resourceAmount;
                 }
                 resourceAmount = 0;
-                testValue = 0;
                 working = true;
+                ignoreCollision = false;
             }
         }
 

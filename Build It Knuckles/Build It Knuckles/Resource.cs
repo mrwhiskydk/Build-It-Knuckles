@@ -27,6 +27,7 @@ namespace Build_It_Knuckles
         {
             ResourceSemaphore.Release(3);
             this.type = type;
+            
         }
 
         /// <summary>
