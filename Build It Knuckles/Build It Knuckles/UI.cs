@@ -17,9 +17,9 @@ namespace Build_It_Knuckles
         /// </summary>
         /// <param name="startPosition">The default position of where the UI is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the UI sprite</param>
-        public UI(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
+        public UI() : base(Vector2.Zero, "UI")
         {
-
+            position = new Vector2(GameWorld.ScreenSize.Width * 0.5f, GameWorld.ScreenSize.Height - sprite.Height * 0.5f);
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace Build_It_Knuckles
 
         private SpriteFont font;
         private Texture2D collisionTexture;
+        private Texture2D map;
 
         private static GraphicsDeviceManager graphics;
 
@@ -61,6 +62,7 @@ namespace Build_It_Knuckles
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             _content = Content;
@@ -109,12 +111,14 @@ namespace Build_It_Knuckles
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+            map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
             Resource = new Resource(1, new Vector2(300, 100));
             Resource = new Resource(2, new Vector2(750, 100));
             Resource = new Resource(3, new Vector2(1250, 100));
             Resource = new Resource(4, new Vector2(1750, 100));
+            new UI();
             new ButtonBuyHouse();
 
             //mouse/cursor needs to be initialized last
@@ -192,6 +196,7 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Lumber: {TownHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
