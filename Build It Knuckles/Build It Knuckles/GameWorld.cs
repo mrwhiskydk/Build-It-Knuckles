@@ -111,7 +111,10 @@ namespace Build_It_Knuckles
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             knuckles = new Worker();
             townHall = new TownHall();
-            Resource = new Resource(1);
+            Resource = new Resource(1, new Vector2(300, 100));
+            Resource = new Resource(2, new Vector2(750, 100));
+            Resource = new Resource(3, new Vector2(1250, 100));
+            Resource = new Resource(4, new Vector2(1750, 100));
             new ButtonBuyHouse();
 
             //mouse/cursor needs to be initialized last

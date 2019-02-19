@@ -206,6 +206,18 @@ namespace Build_It_Knuckles
                 {
                    TownHall.gold += resourceAmount;
                 }
+                else if (GameWorld.Resource.type == 2)
+                {
+                    TownHall.stone += resourceAmount;
+                }
+                else if (GameWorld.Resource.type == 3)
+                {
+                    TownHall.food += resourceAmount;
+                }
+                else if (GameWorld.Resource.type == 4)
+                {
+                    TownHall.lumber += resourceAmount;
+                }
                 resourceAmount = 0;
                 testValue = 0;
                 working = true;
