@@ -27,7 +27,10 @@ namespace Build_It_Knuckles
 
         public static Worker knuckles;
         public static TownHall townHall;
-        public static Resource Resource;
+        public static Resource ResourceGold;
+        public static Resource ResourceStone;
+        public static Resource ResourceFood;
+        public static Resource ResourceLumber;
         public static Cursor mouse;
 
         // ! TEST !
@@ -111,7 +114,10 @@ namespace Build_It_Knuckles
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             knuckles = new Worker();
             townHall = new TownHall();
-            Resource = new Resource(1);
+            ResourceGold = new Resource(new Vector2(300, 100));
+            ResourceStone = new Resource(new Vector2(750, 100));
+            ResourceFood = new Resource(new Vector2(1250, 100));
+            ResourceLumber = new Resource(new Vector2(1750, 100));
             new ButtonBuyHouse();
 
             //mouse/cursor needs to be initialized last
