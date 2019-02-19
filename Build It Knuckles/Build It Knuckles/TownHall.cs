@@ -15,7 +15,7 @@ namespace Build_It_Knuckles
         public static int gold = 200;
         public static int stone = 200;
         public static int lumber = 200;
-        public static int food;
+        public static int food = 200;
         public static int population = 4;
 
         public static Vector2 pos = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);

@@ -266,19 +266,19 @@ namespace Build_It_Knuckles
                     {
                         //if (miningGold)
                         //{
-                        //    GameWorld.ResourceGold.ResourceSemaphore.Release();
+                        //    //GameWorld.ResourceGold.ResourceSemaphore.Release();
                         //}
                         //else if (miningStone)
                         //{
-                        //    GameWorld.ResourceStone.ResourceSemaphore.Release();
+                        //    //GameWorld.ResourceStone.ResourceSemaphore.Release();
                         //}
                         //else if (gatheringFood)
                         //{
-                        //    GameWorld.ResourceFood.ResourceSemaphore.Release();
+                        //    //GameWorld.ResourceFood.ResourceSemaphore.Release();
                         //}
                         //else if (choppingWood)
                         //{
-                        //    GameWorld.ResourceLumber.ResourceSemaphore.Release();
+                        //    //GameWorld.ResourceLumber.ResourceSemaphore.Release();
                         //}
                         GameWorld.workerLeft = true;
                         occupied = false;
