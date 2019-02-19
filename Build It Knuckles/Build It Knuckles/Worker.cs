@@ -23,6 +23,8 @@ namespace Build_It_Knuckles
 
         private bool startWork = false;
 
+        public static int workerPosX = 600;
+
         /// <summary>
         /// Checks if the worker is in its work loop
         /// </summary>
@@ -97,9 +99,9 @@ namespace Build_It_Knuckles
         /// <summary>
         /// Worker's Constructor that sets the frame count, animations player per second, the starting position and sprite name, of the current Worker GameObject
         /// </summary>
-        public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
+        public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 100;   //Worker Health / Patience before running away, is set to X as default
+            health = 1000;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;
             alive = true;

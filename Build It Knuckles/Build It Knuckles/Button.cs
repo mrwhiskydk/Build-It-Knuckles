@@ -80,6 +80,7 @@ namespace Build_It_Knuckles
 
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
+                Worker.workerPosX += 50;
             }
         }
 
