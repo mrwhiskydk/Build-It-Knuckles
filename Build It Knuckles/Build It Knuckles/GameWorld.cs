@@ -28,7 +28,10 @@ namespace Build_It_Knuckles
 
         public static Worker knuckles;
         public static TownHall townHall;
-        public static Resource Resource;
+        public static Resource ResourceGold;
+        public static Resource ResourceStone;
+        public static Resource ResourceFood;
+        public static Resource ResourceLumber;
         public static Cursor mouse;
 
         // ! TEST !
@@ -114,20 +117,16 @@ namespace Build_It_Knuckles
             map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
-            Resource = new Resource(1, new Vector2(300, 100));
-            Resource = new Resource(2, new Vector2(750, 100));
-            Resource = new Resource(3, new Vector2(1250, 100));
-            Resource = new Resource(4, new Vector2(1750, 100));
-            new UI();
+            ResourceGold = new Resource(new Vector2(300, 100));
+            ResourceStone = new Resource(new Vector2(750, 100));
+            ResourceFood = new Resource(new Vector2(1250, 100));
+            ResourceLumber = new Resource(new Vector2(1750, 100));
             new ButtonBuyHouse();
+            new ButtonBuyWorker();
 
             //mouse/cursor needs to be initialized last
             mouse = new Cursor();
         }
-
-
-
-        //go = new AnimatedGameObject(4,20,Content,"HeroStrip");
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -215,8 +214,11 @@ namespace Build_It_Knuckles
             }
 
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Gold: {knuckles.testValue}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-
+            spriteBatch.DrawString(font, $"Gold: {knuckles.resourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             if (workerEnter)
             {
                 spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);

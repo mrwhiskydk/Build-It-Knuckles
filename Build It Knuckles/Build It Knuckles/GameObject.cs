@@ -72,14 +72,6 @@ namespace Build_It_Knuckles
             GameWorld.AddGameObject(this);
         }
 
-        ///// <summary>
-        ///// Specialized constructor for something like the Mouse class where we need to update manually to ensure correct order
-        ///// </summary>
-        //public GameObject()
-        //{
-
-        //}
-
         /// <summary>
         /// Enabled the GameObject to have game logic defined
         /// </summary>

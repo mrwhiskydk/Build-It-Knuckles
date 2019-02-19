@@ -15,15 +15,40 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Worker : AnimatedGameObject
     {
+        public static int workers;
         /// <summary>
         /// Checks if a worker is selected by the player or not.
         /// </summary>
         public bool selected = false;
 
+        private bool startWork = false;
+
+        public static int workerPosX = 600;
+
         /// <summary>
         /// Checks if the worker is in its work loop
         /// </summary>
         public bool working = false;
+
+        /// <summary>
+        /// Checks if a worker is mining gold
+        /// </summary>
+        private bool miningGold = false;
+
+        /// <summary>
+        /// Checks if a worker is mining stone
+        /// </summary>
+        private bool miningStone = false;
+
+        /// <summary>
+        /// Checks if a worker is gathering food
+        /// </summary>
+        private bool gatheringFood = false;
+
+        /// <summary>
+        /// Checks if a worker is chopping wood
+        /// </summary>
+        private bool choppingWood = false;
 
         private bool ignoreCollision = false;
         
@@ -61,6 +86,7 @@ namespace Build_It_Knuckles
             }
             set
             {
+
                 health = value; //Sets the health variable as its value
                 //Checks if current Worker health is at or below a value of 0
                 if(health <= 0)
@@ -70,21 +96,18 @@ namespace Build_It_Knuckles
             }
         }
 
-        // ! TEST !
-        public int testValue = 0;
-
         /// <summary>
         /// Worker's Constructor that sets the frame count, animations player per second, the starting position and sprite name, of the current Worker GameObject
         /// </summary>
-        public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
+        public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 100;   //Worker Health / Patience before running away, is set to X as default
+            health = 1000;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;
             alive = true;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
-
+            workers++;
             DeadEvent += ReactToDead;
         }
 
@@ -98,14 +121,38 @@ namespace Build_It_Knuckles
             {
                 selected = true;
                 working = false;
+                miningGold = false;
+                miningStone = false;
+                choppingWood = false;
+                gatheringFood = false;
             }
-            if (selected && GameWorld.mouse.Click(GameWorld.Resource))
+
+            if (selected && GameWorld.mouse.Click(GameWorld.ResourceGold))
             {
                 selected = false;
                 working = true;
+                miningGold = true;
+            }
+            else if (selected && GameWorld.mouse.Click(GameWorld.ResourceStone))
+            {
+                selected = false;
+                working = true;
+                miningStone = true;
+            }
+            else if (selected && GameWorld.mouse.Click(GameWorld.ResourceFood))
+            {
+                selected = false;
+                working = true;
+                gatheringFood = true;
+            }
+            else if (selected && GameWorld.mouse.Click(GameWorld.ResourceLumber))
+            {
+                selected = false;
+                working = true;
+                choppingWood = true;
             }
 
-            WorkLoop(gameTime);
+            WorkLoop(gameTime);           
 
             base.Update(gameTime);
         }
@@ -113,19 +160,63 @@ namespace Build_It_Knuckles
         private void WorkLoop(GameTime gameTime)
         {           
             
-            if (working && testValue < 50)
+            if (working && resourceAmount < 50 && alive)
             {
                 Vector2 direction;
-                direction = GameWorld.Resource.Position - position;
-                direction.Normalize();
-                position += direction * movementSpeed;
+                if (miningGold)
+                {
+                    direction = GameWorld.ResourceGold.Position - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (miningStone)
+                {
+                    direction = GameWorld.ResourceStone.Position - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (gatheringFood)
+                {
+                    direction = GameWorld.ResourceFood.Position - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (choppingWood)
+                {
+                    direction = GameWorld.ResourceLumber.Position - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+
             }
-            else if (!working && testValue >= 50)
+            else if (!working && resourceAmount >= 50)
             {
                 Vector2 direction;
-                direction = GameWorld.townHall.Position - GameWorld.Resource.Position;
-                direction.Normalize();
-                position += direction * movementSpeed;
+                if (miningGold)
+                {
+                    direction = GameWorld.townHall.Position - GameWorld.ResourceGold.Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (miningStone)
+                {
+                    direction = GameWorld.townHall.Position - GameWorld.ResourceStone.Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (gatheringFood)
+                {
+                    direction = GameWorld.townHall.Position - GameWorld.ResourceFood.Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+                else if (choppingWood)
+                {
+                    direction = GameWorld.townHall.Position - GameWorld.ResourceLumber.Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                }
+
             }
 
             base.Update(gameTime);
@@ -144,23 +235,51 @@ namespace Build_It_Knuckles
 
         private void EnterResource()
         {
-            GameWorld.Resource.ResourceSemaphore.WaitOne();
+            if (miningGold)
+            {
+                GameWorld.ResourceGold.ResourceSemaphore.WaitOne();
+            }
+            else if (miningStone)
+            {
+                GameWorld.ResourceStone.ResourceSemaphore.WaitOne();
+            }
+            else if (gatheringFood)
+            {
+                GameWorld.ResourceFood.ResourceSemaphore.WaitOne();
+            }
+            else if (choppingWood)
+            {
+                GameWorld.ResourceLumber.ResourceSemaphore.WaitOne();
+            }
 
             GameWorld.workerEnter = true;
 
             while (alive)
             {                
-
                 while (occupied)
                 {
                     resourceAmount += 10;
-                    testValue += 10;
                     Health -= 5;
                     Thread.Sleep(1000);
 
-                    if (testValue == 50)
+                    if (resourceAmount == 50)
                     {
-                        GameWorld.Resource.ResourceSemaphore.Release();
+                        //if (miningGold)
+                        //{
+                        //    //GameWorld.ResourceGold.ResourceSemaphore.Release();
+                        //}
+                        //else if (miningStone)
+                        //{
+                        //    //GameWorld.ResourceStone.ResourceSemaphore.Release();
+                        //}
+                        //else if (gatheringFood)
+                        //{
+                        //    //GameWorld.ResourceFood.ResourceSemaphore.Release();
+                        //}
+                        //else if (choppingWood)
+                        //{
+                        //    //GameWorld.ResourceLumber.ResourceSemaphore.Release();
+                        //}
                         GameWorld.workerLeft = true;
                         occupied = false;
                     }
@@ -171,13 +290,54 @@ namespace Build_It_Knuckles
         private void ReactToDead(Worker worker)
         {
             alive = false;
+
+            GameWorld.workerLeft = true;
+            if (miningGold)
+            {
+                GameWorld.ResourceGold.ResourceSemaphore.Release();
+            }
+            else if (miningStone)
+            {
+                GameWorld.ResourceStone.ResourceSemaphore.Release();
+            }
+            else if (gatheringFood)
+            {
+                GameWorld.ResourceFood.ResourceSemaphore.Release();
+            }
+            else if (choppingWood)
+            {
+                GameWorld.ResourceLumber.ResourceSemaphore.Release();
+            }
+
+            Vector2 direction;
+            direction = new Vector2(0, 0) - position;
+            direction.Normalize();
+            position += direction * movementSpeed;
+
+
             GameWorld.RemoveGameObject(this);
         }
 
         private void InsideResource()
         {
             working = false;
-            this.position = GameWorld.Resource.Position;
+            if (miningGold)
+            {
+                position = GameWorld.ResourceGold.Position;
+            }
+            else if (miningStone)
+            {
+                position = GameWorld.ResourceStone.Position;
+            }
+            else if (gatheringFood)
+            {
+                position = GameWorld.ResourceFood.Position;
+            }
+            else if (choppingWood)
+            {
+                position = GameWorld.ResourceLumber.Position;
+            }
+
         }
 
         /// <summary>
@@ -189,11 +349,13 @@ namespace Build_It_Knuckles
             base.DoCollision(otherObject);
 
             if (otherObject is Resource && !ignoreCollision)
-            {
+            {                
+
                 InsideResource();
                 occupied = true;
-                if (occupied)
+                if (occupied && !startWork)
                 {
+                    startWork = true;
                     workingThread.Start();
                 }
 
@@ -202,25 +364,25 @@ namespace Build_It_Knuckles
 
             if (otherObject is TownHall && ignoreCollision)
             {
-                if (GameWorld.Resource.type == 1)
+                if (miningGold)
                 {
                    TownHall.gold += resourceAmount;
                 }
-                else if (GameWorld.Resource.type == 2)
+                else if (miningStone)
                 {
                     TownHall.stone += resourceAmount;
                 }
-                else if (GameWorld.Resource.type == 3)
+                else if (gatheringFood)
                 {
                     TownHall.food += resourceAmount;
                 }
-                else if (GameWorld.Resource.type == 4)
+                else if (choppingWood)
                 {
                     TownHall.lumber += resourceAmount;
                 }
                 resourceAmount = 0;
-                testValue = 0;
                 working = true;
+                ignoreCollision = false;
             }
         }
 
