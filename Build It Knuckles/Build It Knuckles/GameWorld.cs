@@ -114,7 +114,7 @@ namespace Build_It_Knuckles
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            map = Content.Load<Texture2D>("map");
+            //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
             ResourceGold = new Resource(new Vector2(300, 100));
@@ -199,7 +199,7 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Lumber: {TownHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
