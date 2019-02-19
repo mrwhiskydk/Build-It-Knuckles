@@ -158,8 +158,7 @@ namespace Build_It_Knuckles
         }
 
         private void WorkLoop(GameTime gameTime)
-        {           
-            
+        {                       
             if (working && resourceAmount < 50 && alive)
             {
                 Vector2 direction;
@@ -216,8 +215,8 @@ namespace Build_It_Knuckles
                     direction.Normalize();
                     position += direction * movementSpeed;
                 }
-
             }
+
 
             base.Update(gameTime);
         }
@@ -282,6 +281,7 @@ namespace Build_It_Knuckles
                         //}
                         GameWorld.workerLeft = true;
                         occupied = false;
+                        
                     }
                 }
             }           
