@@ -139,13 +139,13 @@ namespace Build_It_Knuckles
             }
             else if (selected && GameWorld.mouse.Click(GameWorld.ResourceFood))
             {
-                selected = true;
+                selected = false;
                 working = true;
                 gatheringFood = true;
             }
             else if (selected && GameWorld.mouse.Click(GameWorld.ResourceLumber))
             {
-                selected = true;
+                selected = false;
                 working = true;
                 choppingWood = true;
             }
