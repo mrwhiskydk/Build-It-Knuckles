@@ -121,6 +121,10 @@ namespace Build_It_Knuckles
             ResourceStone = new Resource(new Vector2(750, 100));
             ResourceFood = new Resource(new Vector2(1250, 100));
             ResourceLumber = new Resource(new Vector2(1750, 100));
+
+
+            //UI stuff
+            new UI();
             new ButtonBuyHouse();
             new ButtonBuyWorker();
 
