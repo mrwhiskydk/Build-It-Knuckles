@@ -211,7 +211,10 @@ namespace Build_It_Knuckles
 
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Gold: {knuckles.resourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-
+            spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             if (workerEnter)
             {
                 spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
