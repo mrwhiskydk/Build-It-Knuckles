@@ -58,7 +58,30 @@ namespace Build_It_Knuckles
                 TownHall.gold -= 10;
                 TownHall.stone -= 25;
                 TownHall.lumber -= 25;
+                TownHall.population += 2;
             }
         }
+    }
+
+    public class ButtonBuyWorker : Button
+    {
+        public ButtonBuyWorker() : base(UI.buttonBuyWorkerPos, "Knuckles")
+        {
+
+        }
+
+        public override void Action()
+        {
+            base.Action();
+
+            if (TownHall.gold >= 20 && TownHall.food >= 20 && TownHall.population >= Worker.workers)
+            {
+                new Worker();
+
+                TownHall.gold -= 20;
+                TownHall.food -= 20;
+            }
+        }
+
     }
 }

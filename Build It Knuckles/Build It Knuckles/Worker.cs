@@ -15,6 +15,7 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Worker : AnimatedGameObject
     {
+        public static int workers;
         /// <summary>
         /// Checks if a worker is selected by the player or not.
         /// </summary>
@@ -25,12 +26,24 @@ namespace Build_It_Knuckles
         /// </summary>
         public bool working = false;
 
+        /// <summary>
+        /// Checks if a worker is mining gold
+        /// </summary>
         private bool miningGold = false;
 
+        /// <summary>
+        /// Checks if a worker is mining stone
+        /// </summary>
         private bool miningStone = false;
 
+        /// <summary>
+        /// Checks if a worker is gathering food
+        /// </summary>
         private bool gatheringFood = false;
 
+        /// <summary>
+        /// Checks if a worker is chopping wood
+        /// </summary>
         private bool choppingWood = false;
 
         private bool ignoreCollision = false;
@@ -92,7 +105,7 @@ namespace Build_It_Knuckles
             alive = true;
             workingThread = new Thread(EnterResource);
             workingThread.IsBackground = true;
-
+            workers++;
             DeadEvent += ReactToDead;
         }
 

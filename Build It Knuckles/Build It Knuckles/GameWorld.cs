@@ -119,14 +119,11 @@ namespace Build_It_Knuckles
             ResourceFood = new Resource(new Vector2(1250, 100));
             ResourceLumber = new Resource(new Vector2(1750, 100));
             new ButtonBuyHouse();
+            new ButtonBuyWorker();
 
             //mouse/cursor needs to be initialized last
             mouse = new Cursor();
         }
-
-
-
-        //go = new AnimatedGameObject(4,20,Content,"HeroStrip");
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
