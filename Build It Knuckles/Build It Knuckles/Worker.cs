@@ -99,7 +99,7 @@ namespace Build_It_Knuckles
         /// </summary>
         public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
         {
-            health = 50;   //Worker Health / Patience before running away, is set to X as default
+            health = 1000;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;
             alive = true;
@@ -262,22 +262,22 @@ namespace Build_It_Knuckles
 
                     if (resourceAmount == 50)
                     {
-                        if (miningGold)
-                        {
-                            GameWorld.ResourceGold.ResourceSemaphore.Release();
-                        }
-                        else if (miningStone)
-                        {
-                            GameWorld.ResourceStone.ResourceSemaphore.Release();
-                        }
-                        else if (gatheringFood)
-                        {
-                            GameWorld.ResourceFood.ResourceSemaphore.Release();
-                        }
-                        else if (choppingWood)
-                        {
-                            GameWorld.ResourceLumber.ResourceSemaphore.Release();
-                        }
+                        //if (miningGold)
+                        //{
+                        //    //GameWorld.ResourceGold.ResourceSemaphore.Release();
+                        //}
+                        //else if (miningStone)
+                        //{
+                        //    //GameWorld.ResourceStone.ResourceSemaphore.Release();
+                        //}
+                        //else if (gatheringFood)
+                        //{
+                        //    //GameWorld.ResourceFood.ResourceSemaphore.Release();
+                        //}
+                        //else if (choppingWood)
+                        //{
+                        //    //GameWorld.ResourceLumber.ResourceSemaphore.Release();
+                        //}
                         GameWorld.workerLeft = true;
                         occupied = false;
                     }
