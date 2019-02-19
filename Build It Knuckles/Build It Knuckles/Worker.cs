@@ -174,7 +174,7 @@ namespace Build_It_Knuckles
                 }
 
             }
-            else if (!working && testValue >= 50)
+            else if (!working && resourceAmount >= 50)
             {
                 Vector2 direction;
                 if (miningGold)
@@ -247,7 +247,7 @@ namespace Build_It_Knuckles
                     Health -= 5;
                     Thread.Sleep(1000);
 
-                    if (testValue == 50)
+                    if (resourceAmount == 50)
                     {
                         if (miningGold)
                         {
