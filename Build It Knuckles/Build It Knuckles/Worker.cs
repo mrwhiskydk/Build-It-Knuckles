@@ -290,7 +290,22 @@ namespace Build_It_Knuckles
             alive = false;
 
             GameWorld.workerLeft = true;
-            GameWorld.Resource.ResourceSemaphore.Release();
+            if (miningGold)
+            {
+                GameWorld.ResourceGold.ResourceSemaphore.Release();
+            }
+            else if (miningStone)
+            {
+                GameWorld.ResourceStone.ResourceSemaphore.Release();
+            }
+            else if (gatheringFood)
+            {
+                GameWorld.ResourceFood.ResourceSemaphore.Release();
+            }
+            else if (choppingWood)
+            {
+                GameWorld.ResourceLumber.ResourceSemaphore.Release();
+            }
 
             Vector2 direction;
             direction = new Vector2(0, 0) - position;
