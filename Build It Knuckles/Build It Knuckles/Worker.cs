@@ -385,6 +385,7 @@ namespace Build_It_Knuckles
                 alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
                 GameWorld.workerLeft = true;
+            }
 
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
@@ -400,20 +401,11 @@ namespace Build_It_Knuckles
             while (flee)
             {
                 Thread.Sleep(5);
-                //if (resourceAmount >= 50)
-                //{
-                //    direction = GameWorld.townHall.Position - Position;
-                //    direction.Normalize();
-                //    position += direction * movementSpeed;
-                //}
-                //else
-                //{
-                    direction = new Vector2(120, 1000) - position;
-                    direction.Normalize();
-                    position += direction * movementSpeed;
-                //}
-                
-                if(position.Y >= 900)
+                direction = new Vector2(120, 1000) - position;
+                direction.Normalize();
+                position += direction * movementSpeed;
+
+                if (position.Y >= 900)
                 {
                     flee = false;
                 }
@@ -531,7 +523,7 @@ namespace Build_It_Knuckles
 
                 ignoreCollision = true;
             }
-
+        
             if (otherObject is TownHall && ignoreCollision)
             {
                 if (carryingGold)
