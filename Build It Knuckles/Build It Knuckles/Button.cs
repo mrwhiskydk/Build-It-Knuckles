@@ -78,9 +78,9 @@ namespace Build_It_Knuckles
         {
             base.Action();
 
-            if (TownHall.gold >= 20 && TownHall.food >= 20 && TownHall.population >= Worker.workers)
+            if (TownHall.gold >= 20 && TownHall.food >= 20 && Worker.workers < TownHall.population)
             {
-                new Worker();
+                
 
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
@@ -92,6 +92,7 @@ namespace Build_It_Knuckles
                 {
                     Worker.workerPosX = 600;
                 }
+                new Worker();
             }
         }
 
