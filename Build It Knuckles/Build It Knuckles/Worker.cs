@@ -24,6 +24,9 @@ namespace Build_It_Knuckles
 
         private bool startWork = false;
 
+        /// <summary>
+        /// Sets a starting position on the x-axis for the workers, that gets larger after each new worker, so the workers don't stack on eachother
+        /// </summary>
         public static int workerPosX = 600;
 
         /// <summary>
@@ -35,24 +38,40 @@ namespace Build_It_Knuckles
         /// Checks if a worker is mining gold
         /// </summary>
         private bool miningGold = false;
+
+        /// <summary>
+        /// Checks if the worker should be converting his resources to gold, when colliding with the townhall object
+        /// </summary
         private bool carryingGold = false;
 
         /// <summary>
         /// Checks if a worker is mining stone
         /// </summary>
         private bool miningStone = false;
+
+        /// <summary>
+        /// Checks if the worker should be converting his resources to stone, when colliding with the townhall object
+        /// </summary>
         private bool carryingStone = false;
 
         /// <summary>
         /// Checks if a worker is gathering food
         /// </summary>
         private bool gatheringFood = false;
+
+        /// <summary>
+        /// Checks if the worker should be converting his resources to food, when colliding with the townhall object
+        /// </summary
         private bool carryingFood = false;
 
         /// <summary>
         /// Checks if a worker is chopping wood
         /// </summary>
         private bool choppingWood = false;
+
+        /// <summary>
+        /// Checks if the worker should be converting his resources to lumber, when colliding with the townhall object
+        /// </summary
         private bool carryingLumber = false;
 
 
@@ -380,16 +399,19 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToDead(Worker worker)
         {
-            if (alive)
+            if (occupied)
             {
-                alive = false;  //value of 'alive' is set false, which kills the current workingThread
+                occupied = false;
+            }
+            alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
                 GameWorld.workerLeft = true;
             }
+
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
             fleeThread.Start();
-            Worker.workers--;
+            workers--;
         }
 
         private void WorkerFleeing()
@@ -400,18 +422,18 @@ namespace Build_It_Knuckles
             while (flee)
             {
                 Thread.Sleep(5);
-                //if (resourceAmount >= 50)
-                //{
-                //    direction = GameWorld.townHall.Position - Position;
-                //    direction.Normalize();
-                //    position += direction * movementSpeed;
-                //}
-                //else
-                //{
+                if (resourceAmount >= 50)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed*0.2f;
+                }
+                else
+                {
                     direction = new Vector2(120, 1000) - position;
                     direction.Normalize();
-                    position += direction * movementSpeed;
-                //}
+                    position += direction * movementSpeed*0.5f;
+                }
                 
                 if(position.Y >= 900)
                 {
@@ -430,19 +452,19 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToResource(Worker worker)
         {
-            if (miningGold)
+            if (carryingGold)
             {
                 GameWorld.ResourceGold.ResourceSemaphore.Release(); //Releases a spot inside the Gold Resource Semaphore
             }
-            else if (miningStone)
+            else if (carryingStone)
             {
                 GameWorld.ResourceStone.ResourceSemaphore.Release(); //Releases a spot inside the Stone Resource Semaphore 
             }
-            else if (gatheringFood)
+            else if (carryingFood)
             {
                 GameWorld.ResourceFood.ResourceSemaphore.Release(); //Releases a spot inside the Food Resource Semaphore 
             }
-            else if (choppingWood)
+            else if (carryingLumber)
             {
                 GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
             }
@@ -531,7 +553,7 @@ namespace Build_It_Knuckles
 
                 ignoreCollision = true;
             }
-
+        
             if (otherObject is TownHall && ignoreCollision)
             {
                 if (carryingGold)
@@ -560,13 +582,13 @@ namespace Build_It_Knuckles
         {
             base.Draw(spriteBatch);
 
-            if (selected == false)
+            if (selected)
             {
-                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0);
+                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.Blue, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0);
             }
             else
             {
-                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.Blue, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0f);
+                spriteBatch.Draw(sprite, position, animationRectangles[currentAnimationIndex], Color.White, rotation, new Vector2(animationRectangles[currentAnimationIndex].Width * 0.5f, animationRectangles[currentAnimationIndex].Height * 0.5f), 1f, new SpriteEffects(), 0f);
             }
         }
     }
