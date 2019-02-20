@@ -34,21 +34,25 @@ namespace Build_It_Knuckles
         /// Checks if a worker is mining gold
         /// </summary>
         private bool miningGold = false;
+        private bool carryingGold = false;
 
         /// <summary>
         /// Checks if a worker is mining stone
         /// </summary>
         private bool miningStone = false;
+        private bool carryingStone = false;
 
         /// <summary>
         /// Checks if a worker is gathering food
         /// </summary>
         private bool gatheringFood = false;
+        private bool carryingFood = false;
 
         /// <summary>
         /// Checks if a worker is chopping wood
         /// </summary>
         private bool choppingWood = false;
+        private bool carryingLumber = false;
 
         private bool ignoreCollision = false;
         
@@ -401,7 +405,37 @@ namespace Build_It_Knuckles
             base.DoCollision(otherObject);
 
             if (otherObject is Resource && !ignoreCollision)
-            {                
+            {
+                Resource resource = (Resource)otherObject;
+
+                if (resource.Equals(GameWorld.ResourceGold))
+                {
+                    carryingGold = true;
+                    carryingStone = false;
+                    carryingFood = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceStone))
+                {
+                    carryingStone = true;
+                    carryingGold = false;
+                    carryingFood = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceFood))
+                {
+                    carryingFood = true;
+                    carryingGold = false;
+                    carryingStone = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceLumber))
+                {
+                    carryingLumber = true;
+                    carryingFood = false;
+                    carryingGold = false;
+                    carryingStone = false;
+                }
 
                 InsideResource();
                 occupied = true;
@@ -414,22 +448,21 @@ namespace Build_It_Knuckles
                 ignoreCollision = true;
             }
 
-
             if (otherObject is TownHall && ignoreCollision)
             {
-                if (miningGold)
+                if (carryingGold)
                 {
                    TownHall.gold += resourceAmount;
                 }
-                else if (miningStone)
+                else if (carryingStone)
                 {
                     TownHall.stone += resourceAmount;
                 }
-                else if (gatheringFood)
+                else if (carryingFood)
                 {
                     TownHall.food += resourceAmount;
                 }
-                else if (choppingWood)
+                else if (carryingLumber)
                 {
                     TownHall.lumber += resourceAmount;
                 }

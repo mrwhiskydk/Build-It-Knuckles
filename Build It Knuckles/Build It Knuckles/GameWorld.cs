@@ -117,10 +117,10 @@ namespace Build_It_Knuckles
             //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
-            ResourceGold = new Resource(new Vector2(300, 100));
+            ResourceGold = new Resource(new Vector2(400, 400));
             ResourceStone = new Resource(new Vector2(750, 100));
-            ResourceFood = new Resource(new Vector2(1250, 100));
-            ResourceLumber = new Resource(new Vector2(1750, 100));
+            ResourceFood = new Resource(new Vector2(1150, 100));
+            ResourceLumber = new Resource(new Vector2(1520, 400));
 
 
             //UI stuff
