@@ -55,9 +55,12 @@ namespace Build_It_Knuckles
         private bool choppingWood = false;
         private bool carryingLumber = false;
 
+
         private bool ignoreCollision = false;
-        
-        //Sets the moving speed amount for the current Worker GameObject
+
+        /// <summary>
+        /// Sets the moving speed amount for the current Worker GameObject
+        /// </summary>
         private float movementSpeed;
 
         /// <summary>
@@ -131,8 +134,8 @@ namespace Build_It_Knuckles
             set
             {
                 health = value; //Sets the health variable as its value
-                //Checks if current Worker health is at or below a value of 0
-                if(health <= 0)
+                
+                if(health <= 0) //Checks if current Worker health is at or below a value of 0
                 {
                     OnDeadEvent();  //If true, the 'DeadEvent' of current Worker triggers
                 }
@@ -162,6 +165,13 @@ namespace Build_It_Knuckles
         /// <param name="gameTime">Time elapsed since last call in the update</param>
         public override void Update(GameTime gameTime)
         {
+            Selection(gameTime);
+            WorkLoop(gameTime);
+            base.Update(gameTime);
+        }
+
+        private void Selection(GameTime gameTime)
+        {
             if (GameWorld.mouse.Click(this) && !occupied)   //Statement also checks if value of occupied is set false, in order to avoid selecting occupied workers within Resource type
             {
                 selected = true;
@@ -176,7 +186,7 @@ namespace Build_It_Knuckles
             {
                 selected = false;
                 working = true;
-                miningGold = true;              
+                miningGold = true;
             }
             else if (selected && GameWorld.mouse.Click(GameWorld.ResourceStone))
             {
@@ -196,12 +206,7 @@ namespace Build_It_Knuckles
                 working = true;
                 choppingWood = true;
             }
-
-            WorkLoop(gameTime);
-
-            base.Update(gameTime);
         }
-
         private void WorkLoop(GameTime gameTime)
         {                       
             if (working && ResourceAmount < 50 && alive)
@@ -348,19 +353,20 @@ namespace Build_It_Knuckles
         {          
             GameWorld.workerEnter = true;
 
-            while (alive)
+            while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
             {                
-                while (occupied)
+                while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
                 {
                     ResourceAmount += 10;
                     Health -= 5;
                     Thread.Sleep(1000);
 
-                    if (ResourceAmount == 50)
-                    {                      
+                    if (ResourceAmount >= 50)
+                    {
                         occupied = false;
-                        
+
                     }
+
                 }
             }           
         }
@@ -374,9 +380,11 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToDead(Worker worker)
         {
-            alive = false;  //value of 'alive' is set false, which kills the current workingThread
+            if (alive)
+            {
+                alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
-            GameWorld.workerLeft = true;
+                GameWorld.workerLeft = true;
 
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
@@ -392,9 +400,18 @@ namespace Build_It_Knuckles
             while (flee)
             {
                 Thread.Sleep(5);
-                direction = new Vector2(120, 1000) - position;
-                direction.Normalize();
-                position += direction * movementSpeed; 
+                //if (resourceAmount >= 50)
+                //{
+                //    direction = GameWorld.townHall.Position - Position;
+                //    direction.Normalize();
+                //    position += direction * movementSpeed;
+                //}
+                //else
+                //{
+                    direction = new Vector2(120, 1000) - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                //}
                 
                 if(position.Y >= 900)
                 {
