@@ -24,7 +24,7 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Resource sprite</param>
         public Resource(Vector2 startposition) : base(startposition, "castle")
         {
-            ResourceSemaphore.Release(3);
+            ResourceSemaphore.Release(3);   //As default, the Semaphore Releases 3 entries spots
         }
 
         /// <summary>

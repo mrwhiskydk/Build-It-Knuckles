@@ -21,7 +21,8 @@ namespace Build_It_Knuckles
         private static List<GameObjectPassive> toBeRemovedPassive = new List<GameObjectPassive>();
 
         public static SpriteFont font;
-        public static SpriteFont fontUI;
+        public static SpriteFont font18;
+        public static SpriteFont font24;
         private Texture2D collisionTexture;
         private Texture2D map;
 
@@ -115,7 +116,8 @@ namespace Build_It_Knuckles
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
-            fontUI = Content.Load<SpriteFont>("fontui");
+            font18 = Content.Load<SpriteFont>("font18");
+            font24 = Content.Load<SpriteFont>("font24");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
