@@ -20,7 +20,8 @@ namespace Build_It_Knuckles
         private static List<GameObjectPassive> toBeAddedPassive = new List<GameObjectPassive>();
         private static List<GameObjectPassive> toBeRemovedPassive = new List<GameObjectPassive>();
 
-        private SpriteFont font;
+        public static SpriteFont font;
+        public static SpriteFont fontUI;
         private Texture2D collisionTexture;
         private Texture2D map;
 
@@ -114,6 +115,7 @@ namespace Build_It_Knuckles
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
+            fontUI = Content.Load<SpriteFont>("fontui");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
@@ -201,10 +203,7 @@ namespace Build_It_Knuckles
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
             //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Lumber: {TownHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Food: {TownHall.food}", new Vector2(100, 180), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);

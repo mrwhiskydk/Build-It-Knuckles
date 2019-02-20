@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Build_It_Knuckles
 {
@@ -33,6 +34,16 @@ namespace Build_It_Knuckles
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+
+            spriteBatch.DrawString(GameWorld.fontUI, TownHall.gold.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 100, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
+            spriteBatch.DrawString(GameWorld.fontUI, TownHall.stone.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 350, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
+            spriteBatch.DrawString(GameWorld.fontUI, TownHall.lumber.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 600, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
+            spriteBatch.DrawString(GameWorld.fontUI, TownHall.food.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 850, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
         }
     }
 }

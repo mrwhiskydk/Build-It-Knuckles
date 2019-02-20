@@ -377,7 +377,7 @@ namespace Build_It_Knuckles
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
             fleeThread.Start();
-
+            Worker.workers--;
         }
 
         private void WorkerFleeing()
