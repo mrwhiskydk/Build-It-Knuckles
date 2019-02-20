@@ -162,6 +162,13 @@ namespace Build_It_Knuckles
         /// <param name="gameTime">Time elapsed since last call in the update</param>
         public override void Update(GameTime gameTime)
         {
+            Selection(gameTime);
+            WorkLoop(gameTime);
+            base.Update(gameTime);
+        }
+
+        private void Selection(GameTime gameTime)
+        {
             if (GameWorld.mouse.Click(this) && !occupied)   //Statement also checks if value of occupied is set false, in order to avoid selecting occupied workers within Resource type
             {
                 selected = true;
@@ -176,7 +183,7 @@ namespace Build_It_Knuckles
             {
                 selected = false;
                 working = true;
-                miningGold = true;              
+                miningGold = true;
             }
             else if (selected && GameWorld.mouse.Click(GameWorld.ResourceStone))
             {
@@ -196,12 +203,7 @@ namespace Build_It_Knuckles
                 working = true;
                 choppingWood = true;
             }
-
-            WorkLoop(gameTime);
-
-            base.Update(gameTime);
         }
-
         private void WorkLoop(GameTime gameTime)
         {                       
             if (working && ResourceAmount < 50 && alive)
@@ -392,9 +394,18 @@ namespace Build_It_Knuckles
             while (flee)
             {
                 Thread.Sleep(5);
-                direction = new Vector2(120, 1000) - position;
-                direction.Normalize();
-                position += direction * movementSpeed; 
+                //if (resourceAmount >= 50)
+                //{
+                //    direction = GameWorld.townHall.Position - Position;
+                //    direction.Normalize();
+                //    position += direction * movementSpeed;
+                //}
+                //else
+                //{
+                    direction = new Vector2(120, 1000) - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                //}
                 
                 if(position.Y >= 900)
                 {
