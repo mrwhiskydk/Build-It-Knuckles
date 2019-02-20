@@ -200,7 +200,7 @@ namespace Build_It_Knuckles
 
         private void WorkLoop(GameTime gameTime)
         {                       
-            if (working && resourceAmount < 50 && alive)
+            if (working && ResourceAmount < 50 && alive)
             {
                 Vector2 direction;
                 if (miningGold)
@@ -257,7 +257,7 @@ namespace Build_It_Knuckles
                     position += direction * movementSpeed;
                 }
             }
-            else if (working && resourceAmount >= 50 && alive)
+            else if (working && ResourceAmount >= 50 && alive)
             {
                 Vector2 direction;
                 if (miningGold)
@@ -265,7 +265,7 @@ namespace Build_It_Knuckles
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
                     position += direction * movementSpeed;
-                    if (resourceAmount < 50)
+                    if (ResourceAmount < 50)
                     {
                         direction = GameWorld.ResourceGold.Position - position;
                         direction.Normalize();
@@ -277,7 +277,7 @@ namespace Build_It_Knuckles
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
                     position += direction * movementSpeed;
-                    if (resourceAmount < 50)
+                    if (ResourceAmount < 50)
                     {
                         direction = GameWorld.ResourceStone.Position - position;
                         direction.Normalize();
@@ -289,7 +289,7 @@ namespace Build_It_Knuckles
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
                     position += direction * movementSpeed;
-                    if (resourceAmount < 50)
+                    if (ResourceAmount < 50)
                     {
                         direction = GameWorld.ResourceFood.Position - position;
                         direction.Normalize();
@@ -301,7 +301,7 @@ namespace Build_It_Knuckles
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
                     position += direction * movementSpeed;
-                    if (resourceAmount < 50)
+                    if (ResourceAmount < 50)
                     {
                         direction = GameWorld.ResourceLumber.Position - position;
                         direction.Normalize();
@@ -486,19 +486,19 @@ namespace Build_It_Knuckles
             {
                 if (miningGold)
                 {
-                   TownHall.gold += resourceAmount;
+                   TownHall.gold += ResourceAmount;
                 }
                 else if (miningStone)
                 {
-                    TownHall.stone += resourceAmount;
+                    TownHall.stone += ResourceAmount;
                 }
                 else if (gatheringFood)
                 {
-                    TownHall.food += resourceAmount;
+                    TownHall.food += ResourceAmount;
                 }
                 else if (choppingWood)
                 {
-                    TownHall.lumber += resourceAmount;
+                    TownHall.lumber += ResourceAmount;
                 }
                 ResourceAmount = 0;
                 working = true;
