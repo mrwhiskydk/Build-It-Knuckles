@@ -216,6 +216,58 @@ namespace Build_It_Knuckles
                     position += direction * movementSpeed;
                 }
             }
+            else if (working && resourceAmount >= 50 && alive)
+            {
+                Vector2 direction;
+                if (miningGold)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceGold.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (miningStone)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceStone.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (gatheringFood)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceFood.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (choppingWood)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceLumber.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+            }
 
 
             base.Update(gameTime);
@@ -361,6 +413,7 @@ namespace Build_It_Knuckles
 
                 ignoreCollision = true;
             }
+
 
             if (otherObject is TownHall && ignoreCollision)
             {
