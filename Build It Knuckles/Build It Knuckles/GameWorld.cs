@@ -12,7 +12,7 @@ namespace Build_It_Knuckles
     public class GameWorld : Game
     {
         private SpriteBatch spriteBatch;
-        private List<GameObject> gameObjects = new List<GameObject>();
+        public static List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> toBeAdded = new List<GameObject>();
         private static List<GameObject> toBeRemoved = new List<GameObject>();
 
@@ -210,7 +210,7 @@ namespace Build_It_Knuckles
             }
 
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Gold: {knuckles.resourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, $"Gold: {knuckles.ResourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
             if (workerEnter)
             {
@@ -219,7 +219,7 @@ namespace Build_It_Knuckles
 
             if (workerLeft)
             {
-                spriteBatch.DrawString(font, "Worker Has Left the Mine!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(font, "Worker Released 1!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             }
 
             spriteBatch.End();
