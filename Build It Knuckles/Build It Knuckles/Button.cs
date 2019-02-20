@@ -47,11 +47,17 @@ namespace Build_It_Knuckles
 
     public class ButtonBuyHouse : Button
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ButtonBuyHouse() : base(UI.buttonBuyHousePos, "iconhouse")
         {
 
         }
 
+        /// <summary>
+        /// Button has been pressed to build a house. First check if we have enough resources and if then build a house
+        /// </summary>
         public override void Action()
         {
             base.Action();
@@ -68,11 +74,17 @@ namespace Build_It_Knuckles
 
     public class ButtonBuyWorker : Button
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ButtonBuyWorker() : base(UI.buttonBuyWorkerPos, "iconworker")
         {
 
         }
 
+        /// <summary>
+        /// Button has been pressed. Build a worker if we have enough resources and worker count less than max worker count
+        /// </summary>
         public override void Action()
         {
             base.Action();
@@ -83,6 +95,7 @@ namespace Build_It_Knuckles
 
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
+                //change worker position for every new worker spawned so they dont spawn on top of each other
                 if (Worker.workerPosX <= 1200)
                 {
                     Worker.workerPosX += 50;

@@ -40,11 +40,13 @@ namespace Build_It_Knuckles
         {
             base.Draw(spriteBatch);
 
+            //Drawing strings on the hud for all the resources
             spriteBatch.DrawString(GameWorld.font24, TownHall.gold.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 100, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
             spriteBatch.DrawString(GameWorld.font24, TownHall.stone.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 350, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
             spriteBatch.DrawString(GameWorld.font24, TownHall.lumber.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 600, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
             spriteBatch.DrawString(GameWorld.font24, TownHall.food.ToString(), new Vector2(position.X - sprite.Width * 0.5f + 850, position.Y - 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
 
+            //Drawing strings on the hud showing amount of workers and max amount of workers. same for houses
             spriteBatch.DrawString(GameWorld.font18, $"{Worker.workers.ToString()}/{TownHall.population}", new Vector2(buttonBuyWorkerPos.X - 25, buttonBuyWorkerPos.Y + 5), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
             spriteBatch.DrawString(GameWorld.font18, $"{House.houses.ToString()}/{House.housesMax}", new Vector2(buttonBuyHousePos.X - 15, buttonBuyHousePos.Y + 5), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.993f);
         }
