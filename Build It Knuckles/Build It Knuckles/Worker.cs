@@ -166,7 +166,7 @@ namespace Build_It_Knuckles
         /// </summary>
         public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 50;   //Worker Health / Patience before running away, is set to X as default
+            health = 500;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;   //Value is set false as default, since the instantiated Worker haven't reached/collided with a Resource type yet
             alive = true;   //Value is set true as default, since the Worker GameObject should be instantiated as alive
