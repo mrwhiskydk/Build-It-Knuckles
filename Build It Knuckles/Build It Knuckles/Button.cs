@@ -55,14 +55,13 @@ namespace Build_It_Knuckles
         public override void Action()
         {
             base.Action();
-            if (TownHall.gold >= 10 && TownHall.stone >= 25 && TownHall.lumber >= 25 && House.houses < 4)
+            if (TownHall.gold >= 10 && TownHall.stone >= 25 && TownHall.lumber >= 25 && House.houses < House.housesMax)
             {
                 new House();
 
                 TownHall.gold -= 10;
                 TownHall.stone -= 25;
                 TownHall.lumber -= 25;
-                TownHall.population += 2;
             }
         }
     }
