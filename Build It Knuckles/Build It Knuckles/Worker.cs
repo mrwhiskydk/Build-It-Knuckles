@@ -380,12 +380,14 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToDead(Worker worker)
         {
-            if (alive)
+            if (occupied)
             {
-                alive = false;  //value of 'alive' is set false, which kills the current workingThread
-
-                GameWorld.workerLeft = true;
+                occupied = false;
             }
+
+            alive = false;  //value of 'alive' is set false, which kills the current workingThread
+
+            GameWorld.workerLeft = true;
 
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
@@ -407,7 +409,7 @@ namespace Build_It_Knuckles
 
                 if (position.Y >= 900)
                 {
-                    flee = false;
+                    flee = false;             
                 }
             }
 
