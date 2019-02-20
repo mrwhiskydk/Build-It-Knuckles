@@ -24,6 +24,8 @@ namespace Build_It_Knuckles
 
         private bool startWork = false;
 
+        public static int workerPosX = 600;
+
         /// <summary>
         /// Checks if the worker is in its work loop and sets a value of true if worker is moving towards chosen Resource GameObject
         /// </summary>
@@ -136,7 +138,7 @@ namespace Build_It_Knuckles
         /// <summary>
         /// Worker's Constructor that sets the frame count, animations player per second, the starting position and sprite name, of the current Worker GameObject
         /// </summary>
-        public Worker() : base(3, 10, new Vector2(600,300), "knuckles")
+        public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
             health = 50;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
@@ -197,9 +199,8 @@ namespace Build_It_Knuckles
         }
 
         private void WorkLoop(GameTime gameTime)
-        {           
-            
-            if (working && ResourceAmount < 50 && alive)
+        {                       
+            if (working && resourceAmount < 50 && alive)
             {
                 Vector2 direction;
                 if (miningGold)
@@ -255,8 +256,60 @@ namespace Build_It_Knuckles
                     direction.Normalize();
                     position += direction * movementSpeed;
                 }
-
             }
+            else if (working && resourceAmount >= 50 && alive)
+            {
+                Vector2 direction;
+                if (miningGold)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceGold.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (miningStone)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceStone.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (gatheringFood)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceFood.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+                else if (choppingWood)
+                {
+                    direction = GameWorld.townHall.Position - Position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                    if (resourceAmount < 50)
+                    {
+                        direction = GameWorld.ResourceLumber.Position - position;
+                        direction.Normalize();
+                        position += direction * movementSpeed;
+                    }
+                }
+            }
+
 
             base.Update(gameTime);
         }
@@ -302,6 +355,7 @@ namespace Build_It_Knuckles
                     if (ResourceAmount == 50)
                     {                      
                         occupied = false;
+                        
                     }
                 }
             }           
@@ -426,6 +480,7 @@ namespace Build_It_Knuckles
 
                 ignoreCollision = true;
             }
+
 
             if (otherObject is TownHall && ignoreCollision)
             {

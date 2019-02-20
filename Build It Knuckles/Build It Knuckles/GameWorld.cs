@@ -22,6 +22,7 @@ namespace Build_It_Knuckles
 
         private SpriteFont font;
         private Texture2D collisionTexture;
+        private Texture2D map;
 
         private static GraphicsDeviceManager graphics;
 
@@ -64,6 +65,7 @@ namespace Build_It_Knuckles
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             _content = Content;
@@ -112,12 +114,17 @@ namespace Build_It_Knuckles
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+            //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
             ResourceGold = new Resource(new Vector2(300, 100));
             ResourceStone = new Resource(new Vector2(750, 100));
             ResourceFood = new Resource(new Vector2(1250, 100));
             ResourceLumber = new Resource(new Vector2(1750, 100));
+
+
+            //UI stuff
+            new UI();
             new ButtonBuyHouse();
             new ButtonBuyWorker();
 
@@ -192,6 +199,7 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Lumber: {TownHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
@@ -210,8 +218,11 @@ namespace Build_It_Knuckles
             }
 
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Gold: {knuckles.ResourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-
+            spriteBatch.DrawString(font, $"Gold: {knuckles.resourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             if (workerEnter)
             {
                 spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
