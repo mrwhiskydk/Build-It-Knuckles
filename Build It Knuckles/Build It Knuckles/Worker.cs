@@ -51,9 +51,12 @@ namespace Build_It_Knuckles
         /// </summary>
         private bool choppingWood = false;
 
+
         private bool ignoreCollision = false;
-        
-        //Sets the moving speed amount for the current Worker GameObject
+
+        /// <summary>
+        /// Sets the moving speed amount for the current Worker GameObject
+        /// </summary>
         private float movementSpeed;
 
         /// <summary>
@@ -127,8 +130,8 @@ namespace Build_It_Knuckles
             set
             {
                 health = value; //Sets the health variable as its value
-                //Checks if current Worker health is at or below a value of 0
-                if(health <= 0)
+                
+                if(health <= 0) //Checks if current Worker health is at or below a value of 0
                 {
                     OnDeadEvent();  //If true, the 'DeadEvent' of current Worker triggers
                 }
@@ -344,19 +347,20 @@ namespace Build_It_Knuckles
         {          
             GameWorld.workerEnter = true;
 
-            while (alive)
+            while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
             {                
-                while (occupied)
+                while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
                 {
                     ResourceAmount += 10;
                     Health -= 5;
                     Thread.Sleep(1000);
 
-                    if (ResourceAmount == 50)
-                    {                      
+                    if (ResourceAmount >= 50)
+                    {
                         occupied = false;
-                        
+
                     }
+
                 }
             }           
         }
@@ -370,13 +374,17 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToDead(Worker worker)
         {
-            alive = false;  //value of 'alive' is set false, which kills the current workingThread
+            if (alive)
+            {
+                alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
-            GameWorld.workerLeft = true;
+                GameWorld.workerLeft = true;
 
-            Thread fleeThread = new Thread(WorkerFleeing);
-            fleeThread.IsBackground = true;
-            fleeThread.Start();
+                Thread fleeThread = new Thread(WorkerFleeing);
+                fleeThread.IsBackground = true;
+                fleeThread.Start();
+            }
+            
 
         }
 
