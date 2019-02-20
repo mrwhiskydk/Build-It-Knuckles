@@ -11,9 +11,9 @@ namespace Build_It_Knuckles
     /// </summary>
     public class UI : GameObjectPassive
     {
-        public static Vector2 buttonBuyHousePos = new Vector2(GameWorld.ScreenSize.Width - 100, GameWorld.ScreenSize.Height - 100);
+        public static Vector2 buttonBuyHousePos;
 
-        public static Vector2 buttonBuyWorkerPos = new Vector2(GameWorld.ScreenSize.Width - 100, GameWorld.ScreenSize.Height - 200);
+        public static Vector2 buttonBuyWorkerPos;
         /// <summary>
         /// UI's Constructor that sets the starting position and sprite of the UI GameObjectPassive
         /// </summary>
@@ -22,6 +22,8 @@ namespace Build_It_Knuckles
         public UI() : base(Vector2.Zero, "UI")
         {
             position = new Vector2(GameWorld.ScreenSize.Width * 0.5f, GameWorld.ScreenSize.Height - sprite.Height * 0.5f);
+            buttonBuyHousePos = new Vector2(position.X + sprite.Width * 0.5f - 52, position.Y + sprite.Height * 0.5f - 48);
+            buttonBuyWorkerPos = new Vector2(position.X + sprite.Width * 0.5f - 128, position.Y + sprite.Height * 0.5f - 48);
         }
 
         /// <summary>

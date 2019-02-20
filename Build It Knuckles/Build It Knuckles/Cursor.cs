@@ -13,7 +13,6 @@ namespace Build_It_Knuckles
 
     public class Cursor : GameObject
     {
-        public event BuyHouseHandler BuyHouse;
 
         private MouseState oldMouseState, currentMouseState;
 

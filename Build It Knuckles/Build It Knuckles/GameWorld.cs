@@ -12,7 +12,7 @@ namespace Build_It_Knuckles
     public class GameWorld : Game
     {
         private SpriteBatch spriteBatch;
-        private List<GameObject> gameObjects = new List<GameObject>();
+        public static List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> toBeAdded = new List<GameObject>();
         private static List<GameObject> toBeRemoved = new List<GameObject>();
 
@@ -33,6 +33,7 @@ namespace Build_It_Knuckles
         public static Resource ResourceFood;
         public static Resource ResourceLumber;
         public static Cursor mouse;
+        public static ButtonBuyHouse btnBuyHouse;
 
         // ! TEST !
         public static bool workerEnter = false;
@@ -125,7 +126,7 @@ namespace Build_It_Knuckles
 
             //UI stuff
             new UI();
-            new ButtonBuyHouse();
+            btnBuyHouse = new ButtonBuyHouse();
             new ButtonBuyWorker();
 
             //mouse/cursor needs to be initialized last
@@ -198,7 +199,7 @@ namespace Build_It_Knuckles
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack);
             //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
@@ -217,8 +218,11 @@ namespace Build_It_Knuckles
                 go.Draw(spriteBatch);
             }
 
+            //Important draws that must be on top
+            //mouse.Draw(spriteBatch);
+
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Gold: {knuckles.resourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, $"Gold: {knuckles.ResourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
@@ -230,7 +234,7 @@ namespace Build_It_Knuckles
 
             if (workerLeft)
             {
-                spriteBatch.DrawString(font, "Worker Has Left the Mine!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(font, "Worker Released 1!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             }
 
             spriteBatch.End();
