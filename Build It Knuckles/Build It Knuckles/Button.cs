@@ -84,7 +84,14 @@ namespace Build_It_Knuckles
 
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
-                Worker.workerPosX += 50;
+                if (Worker.workerPosX <= 1200)
+                {
+                    Worker.workerPosX += 50;
+                }
+                else
+                {
+                    Worker.workerPosX = 600;
+                }
             }
         }
 
