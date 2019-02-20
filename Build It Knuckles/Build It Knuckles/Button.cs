@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Build_It_Knuckles
 {
@@ -11,8 +12,6 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Button : GameObject
     {
-        
-
         /// <summary>
         /// Button's Constructor that sets the starting position and sprite name of the current Button GameObject
         /// </summary>
@@ -20,7 +19,7 @@ namespace Build_It_Knuckles
         /// <param name="spriteName">The default name of the Button sprite</param>
         public Button(Vector2 startPosition, string spriteName) : base(startPosition, spriteName)
         {
-
+            
         }
 
         /// <summary>
@@ -39,11 +38,16 @@ namespace Build_It_Knuckles
         {
             base.Update(gameTime);
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, position, null, Color.White, rotation, new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f), 1f, SpriteEffects.None, 0.992f);
+        }
     }
 
     public class ButtonBuyHouse : Button
     {
-        public ButtonBuyHouse() : base(UI.buttonBuyHousePos, "house")
+        public ButtonBuyHouse() : base(UI.buttonBuyHousePos, "iconhouse")
         {
 
         }
@@ -65,7 +69,7 @@ namespace Build_It_Knuckles
 
     public class ButtonBuyWorker : Button
     {
-        public ButtonBuyWorker() : base(UI.buttonBuyWorkerPos, "Knuckles")
+        public ButtonBuyWorker() : base(UI.buttonBuyWorkerPos, "iconworker")
         {
 
         }
@@ -74,9 +78,9 @@ namespace Build_It_Knuckles
         {
             base.Action();
 
-            if (TownHall.gold >= 20 && TownHall.food >= 20 && TownHall.population >= Worker.workers)
+            if (TownHall.gold >= 20 && TownHall.food >= 20 && Worker.workers < TownHall.population)
             {
-                new Worker();
+                
 
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
@@ -88,6 +92,7 @@ namespace Build_It_Knuckles
                 {
                     Worker.workerPosX = 600;
                 }
+                new Worker();
             }
         }
 

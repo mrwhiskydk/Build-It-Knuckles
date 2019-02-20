@@ -20,7 +20,8 @@ namespace Build_It_Knuckles
         private static List<GameObjectPassive> toBeAddedPassive = new List<GameObjectPassive>();
         private static List<GameObjectPassive> toBeRemovedPassive = new List<GameObjectPassive>();
 
-        private SpriteFont font;
+        public static SpriteFont font;
+        public static SpriteFont fontUI;
         private Texture2D collisionTexture;
         private Texture2D map;
 
@@ -33,6 +34,7 @@ namespace Build_It_Knuckles
         public static Resource ResourceFood;
         public static Resource ResourceLumber;
         public static Cursor mouse;
+        public static ButtonBuyHouse btnBuyHouse;
 
         // ! TEST !
         public static bool workerEnter = false;
@@ -113,19 +115,20 @@ namespace Build_It_Knuckles
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("ExampleFont");
+            fontUI = Content.Load<SpriteFont>("fontui");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             //map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
-            ResourceGold = new Resource(new Vector2(300, 100));
+            ResourceGold = new Resource(new Vector2(400, 400));
             ResourceStone = new Resource(new Vector2(750, 100));
-            ResourceFood = new Resource(new Vector2(1250, 100));
-            ResourceLumber = new Resource(new Vector2(1750, 100));
+            ResourceFood = new Resource(new Vector2(1150, 100));
+            ResourceLumber = new Resource(new Vector2(1520, 400));
 
 
             //UI stuff
             new UI();
-            new ButtonBuyHouse();
+            btnBuyHouse = new ButtonBuyHouse();
             new ButtonBuyWorker();
 
             //mouse/cursor needs to be initialized last
@@ -198,12 +201,9 @@ namespace Build_It_Knuckles
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack);
             //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(font, $"Gold: {TownHall.gold}", new Vector2(100, 120), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Stone: {TownHall.stone}", new Vector2(100, 140), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Lumber: {TownHall.lumber}", new Vector2(100, 160), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, $"Food: {TownHall.food}", new Vector2(100, 180), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+            
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);
@@ -216,6 +216,9 @@ namespace Build_It_Knuckles
             {
                 go.Draw(spriteBatch);
             }
+
+            //Important draws that must be on top
+            //mouse.Draw(spriteBatch);
 
             spriteBatch.DrawString(font, $"Health: {knuckles.Health}", new Vector2(600, 850), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, $"Gold: {knuckles.ResourceAmount}", new Vector2(600, 800), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);

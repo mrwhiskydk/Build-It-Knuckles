@@ -35,21 +35,25 @@ namespace Build_It_Knuckles
         /// Checks if a worker is mining gold
         /// </summary>
         private bool miningGold = false;
+        private bool carryingGold = false;
 
         /// <summary>
         /// Checks if a worker is mining stone
         /// </summary>
         private bool miningStone = false;
+        private bool carryingStone = false;
 
         /// <summary>
         /// Checks if a worker is gathering food
         /// </summary>
         private bool gatheringFood = false;
+        private bool carryingFood = false;
 
         /// <summary>
         /// Checks if a worker is chopping wood
         /// </summary>
         private bool choppingWood = false;
+        private bool carryingLumber = false;
 
 
         private bool ignoreCollision = false;
@@ -161,6 +165,13 @@ namespace Build_It_Knuckles
         /// <param name="gameTime">Time elapsed since last call in the update</param>
         public override void Update(GameTime gameTime)
         {
+            Selection(gameTime);
+            WorkLoop(gameTime);
+            base.Update(gameTime);
+        }
+
+        private void Selection(GameTime gameTime)
+        {
             if (GameWorld.mouse.Click(this) && !occupied)   //Statement also checks if value of occupied is set false, in order to avoid selecting occupied workers within Resource type
             {
                 selected = true;
@@ -175,7 +186,7 @@ namespace Build_It_Knuckles
             {
                 selected = false;
                 working = true;
-                miningGold = true;              
+                miningGold = true;
             }
             else if (selected && GameWorld.mouse.Click(GameWorld.ResourceStone))
             {
@@ -195,12 +206,7 @@ namespace Build_It_Knuckles
                 working = true;
                 choppingWood = true;
             }
-
-            WorkLoop(gameTime);
-
-            base.Update(gameTime);
         }
-
         private void WorkLoop(GameTime gameTime)
         {                       
             if (working && ResourceAmount < 50 && alive)
@@ -380,12 +386,10 @@ namespace Build_It_Knuckles
 
                 GameWorld.workerLeft = true;
 
-                Thread fleeThread = new Thread(WorkerFleeing);
-                fleeThread.IsBackground = true;
-                fleeThread.Start();
-            }
-            
-
+            Thread fleeThread = new Thread(WorkerFleeing);
+            fleeThread.IsBackground = true;
+            fleeThread.Start();
+            Worker.workers--;
         }
 
         private void WorkerFleeing()
@@ -396,9 +400,18 @@ namespace Build_It_Knuckles
             while (flee)
             {
                 Thread.Sleep(5);
-                direction = new Vector2(120, 1000) - position;
-                direction.Normalize();
-                position += direction * movementSpeed; 
+                //if (resourceAmount >= 50)
+                //{
+                //    direction = GameWorld.townHall.Position - Position;
+                //    direction.Normalize();
+                //    position += direction * movementSpeed;
+                //}
+                //else
+                //{
+                    direction = new Vector2(120, 1000) - position;
+                    direction.Normalize();
+                    position += direction * movementSpeed;
+                //}
                 
                 if(position.Y >= 900)
                 {
@@ -477,7 +490,37 @@ namespace Build_It_Knuckles
 
             if (otherObject is Resource && !ignoreCollision)
             {
-                
+                Resource resource = (Resource)otherObject;
+
+                if (resource.Equals(GameWorld.ResourceGold))
+                {
+                    carryingGold = true;
+                    carryingStone = false;
+                    carryingFood = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceStone))
+                {
+                    carryingStone = true;
+                    carryingGold = false;
+                    carryingFood = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceFood))
+                {
+                    carryingFood = true;
+                    carryingGold = false;
+                    carryingStone = false;
+                    carryingLumber = false;
+                }
+                else if (resource.Equals(GameWorld.ResourceLumber))
+                {
+                    carryingLumber = true;
+                    carryingFood = false;
+                    carryingGold = false;
+                    carryingStone = false;
+                }
+
                 InsideResource();
                 occupied = true;
                 if (occupied && !startWork)
@@ -489,22 +532,21 @@ namespace Build_It_Knuckles
                 ignoreCollision = true;
             }
 
-
             if (otherObject is TownHall && ignoreCollision)
             {
-                if (miningGold)
+                if (carryingGold)
                 {
                    TownHall.gold += ResourceAmount;
                 }
-                else if (miningStone)
+                else if (carryingStone)
                 {
                     TownHall.stone += ResourceAmount;
                 }
-                else if (gatheringFood)
+                else if (carryingFood)
                 {
                     TownHall.food += ResourceAmount;
                 }
-                else if (choppingWood)
+                else if (carryingLumber)
                 {
                     TownHall.lumber += ResourceAmount;
                 }
