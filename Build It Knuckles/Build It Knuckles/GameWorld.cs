@@ -25,6 +25,7 @@ namespace Build_It_Knuckles
         public static SpriteFont font24;
         private Texture2D collisionTexture;
         private Texture2D map;
+        private Texture2D winScreen;
 
         private static GraphicsDeviceManager graphics;
 
@@ -115,6 +116,7 @@ namespace Build_It_Knuckles
             font24 = Content.Load<SpriteFont>("font24");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             map = Content.Load<Texture2D>("map");
+            winScreen = Content.Load<Texture2D>("YouWin");
             knuckles = new Worker();
             townHall = new TownHall();
             ResourceGold = new Resource(new Vector2(400, 400), "gold");
@@ -220,8 +222,12 @@ namespace Build_It_Knuckles
             spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);            
+            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
+            if (House.houses == House.housesMax)
+            {
+                spriteBatch.Draw(winScreen, Vector2.Zero, null, Color.White, 0f, new Vector2(0,0), 1f, SpriteEffects.None, 1f);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }

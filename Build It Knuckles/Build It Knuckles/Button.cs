@@ -72,6 +72,18 @@ namespace Build_It_Knuckles
                 new House();
             }
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (TownHall.gold >= House.costGold && TownHall.stone >= House.costStone && TownHall.lumber >= House.costLumber && House.houses < House.housesMax)
+            {
+                spriteBatch.Draw(sprite, position, null, Color.Yellow, rotation, new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f), 1f, SpriteEffects.None, 0.992f);
+            }
+            else
+            {
+                spriteBatch.Draw(sprite, position, null, Color.White, rotation, new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f), 1f, SpriteEffects.None, 0.992f);
+            }
+        }
     }
 
     public class ButtonBuyWorker : Button
@@ -105,6 +117,18 @@ namespace Build_It_Knuckles
                     Worker.workerPosX = 600;
                 }
                 new Worker();
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (TownHall.gold >= 20 && TownHall.food >= 20 && Worker.workers < TownHall.population)
+            {
+                spriteBatch.Draw(sprite, position, null, Color.Yellow, rotation, new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f), 1f, SpriteEffects.None, 0.992f);
+            }
+            else
+            {
+                spriteBatch.Draw(sprite, position, null, Color.White, rotation, new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f), 1f, SpriteEffects.None, 0.992f);
             }
         }
 

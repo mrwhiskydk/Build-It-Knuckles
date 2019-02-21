@@ -9,11 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Build_It_Knuckles
 {
-    public delegate void BuyHouseHandler();
-
     public class Cursor : GameObject
     {
-
         private MouseState oldMouseState, currentMouseState;
 
         public Cursor() : base("Hand")
@@ -29,6 +26,7 @@ namespace Build_It_Knuckles
         {
             position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
 
+            //used to check for mouse click only on 1 update so we dont continiously spam left click
             oldMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
         }
