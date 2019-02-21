@@ -37,11 +37,6 @@ namespace Build_It_Knuckles
         public static Cursor mouse;
         public static ButtonBuyHouse btnBuyHouse;
 
-        // ! TEST !
-        public static bool workerEnter = false;
-        // ! TEST !
-        public static bool workerLeft = false;
-
         public static Rectangle ScreenSize
         {
             get
@@ -119,13 +114,13 @@ namespace Build_It_Knuckles
             font18 = Content.Load<SpriteFont>("font18");
             font24 = Content.Load<SpriteFont>("font24");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            //map = Content.Load<Texture2D>("map");
+            map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
-            ResourceGold = new Resource(new Vector2(400, 400), "Gold");
-            ResourceStone = new Resource(new Vector2(750, 100), "world");
-            ResourceFood = new Resource(new Vector2(1150, 100), "");
-            ResourceLumber = new Resource(new Vector2(1520, 400), "outside");
+            ResourceGold = new Resource(new Vector2(400, 400), "gold");
+            ResourceStone = new Resource(new Vector2(750, 100), "stone");
+            ResourceFood = new Resource(new Vector2(1150, 100), "food");
+            ResourceLumber = new Resource(new Vector2(1520, 400), "lumber");
 
 
             //UI stuff
@@ -204,7 +199,7 @@ namespace Build_It_Knuckles
         {
             GraphicsDevice.Clear(Color.DarkGreen);
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
-            //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             
             foreach (GameObject go in gameObjects)
             {
@@ -227,16 +222,7 @@ namespace Build_It_Knuckles
             spriteBatch.DrawString(font,"Goldmine", new Vector2(ResourceGold.Position.X - 30, ResourceGold.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Stonemine", new Vector2(ResourceStone.Position.X - 30, ResourceStone.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(font, "Food place", new Vector2(ResourceFood.Position.X - 30, ResourceFood.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            if (workerEnter)
-            {
-                spriteBatch.DrawString(font, "Worker Has Entered the Mine!", new Vector2(600, 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            }
-
-            if (workerLeft)
-            {
-                spriteBatch.DrawString(font, "Worker Released 1!", new Vector2(600, 650), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-            }
+            spriteBatch.DrawString(font, "Lumbermill", new Vector2(ResourceLumber.Position.X - 30, ResourceLumber.Position.Y - 60), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);            
 
             spriteBatch.End();
             base.Draw(gameTime);
