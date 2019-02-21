@@ -31,7 +31,6 @@ namespace Build_It_Knuckles
 
             oldMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-
         }
 
         /// <summary>
