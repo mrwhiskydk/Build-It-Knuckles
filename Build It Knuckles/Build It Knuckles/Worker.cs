@@ -172,12 +172,12 @@ namespace Build_It_Knuckles
         /// </summary>
         public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 500;   //Worker Health / Patience before running away, is set to X as default
+            health = 250;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;   //Value is set false as default, since the instantiated Worker haven't reached/collided with a Resource type yet
             alive = true;   //Value is set true as default, since the Worker GameObject should be instantiated as alive
-            workingThread = new Thread(EnterResource);  //Instantiates a workingThread onto current Worker. Takes in the EnterResource method as it's parameters
-            workingThread.IsBackground = true;  //the instantiated workingThread is set as a background Thread as default.
+            /*workingThread = new Thread(EnterResource);*/  //Instantiates a workingThread onto current Worker. Takes in the EnterResource method as it's parameters
+            /*workingThread.IsBackground = true;*/  //the instantiated workingThread is set as a background Thread as default.
             workers++;
 
             DeadEvent += ReactToDead;   //Sets the ReactToDead Method, to take part of the event 'DeadEvent'
@@ -385,24 +385,77 @@ namespace Build_It_Knuckles
         /// </summary>
         private void EnterResource()
         {          
+
+            if (miningGold)
+            {
+                GameWorld.ResourceGold.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Gold Semaphore has enough entries space
+                position = GameWorld.ResourceGold.Position;                
+            }
+            else if (miningStone)
+            {
+                GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Stone Semaphore has enough entries space
+                position = GameWorld.ResourceStone.Position;
+            }
+            else if (gatheringFood)
+            {
+                GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Food Semaphore has enough entries space
+                position = GameWorld.ResourceFood.Position;
+            }
+            else if (choppingWood)
+            {
+                GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Lumber Semaphore has enough entries space
+                position = GameWorld.ResourceLumber.Position;
+            }
+
             GameWorld.workerEnter = true;
 
-            while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
-            {                
-                while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
+            while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
+            {
+                ResourceAmount += 10;
+                Health -= 5;
+                Thread.Sleep(1000);
+
+                if (ResourceAmount >= 50)
                 {
-                    ResourceAmount += 10;
-                    Health -= 5;
-                    Thread.Sleep(1000);
-
-                    if (ResourceAmount >= 50)
-                    {
-                        occupied = false;
-
-                    }
+                    occupied = false;
 
                 }
-            }           
+
+            }
+
+            if (carryingGold)
+            {
+                GameWorld.ResourceGold.ResourceSemaphore.Release(); //Releases a spot inside the Gold Resource Semaphore
+            }
+            else if (carryingStone)
+            {
+                GameWorld.ResourceStone.ResourceSemaphore.Release(); //Releases a spot inside the Stone Resource Semaphore 
+            }
+            else if (carryingFood)
+            {
+                GameWorld.ResourceFood.ResourceSemaphore.Release(); //Releases a spot inside the Food Resource Semaphore 
+            }
+            else if (carryingLumber)
+            {
+                GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
+            }
+            
+            //while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
+            //{                
+            //    while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
+            //    {
+            //        ResourceAmount += 10;
+            //        Health -= 5;
+            //        Thread.Sleep(1000);
+
+            //        if (ResourceAmount >= 50)
+            //        {
+            //            occupied = false;
+
+            //        }
+
+            //    }
+            //}           
         }
 
         /// <summary>
@@ -418,6 +471,7 @@ namespace Build_It_Knuckles
             {
                 occupied = false;
             }
+
             alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
             GameWorld.workerLeft = true;
@@ -440,18 +494,18 @@ namespace Build_It_Knuckles
                 {
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
-                    position += direction * movementSpeed*0.2f;
+                    position += direction * movementSpeed*0.4f;
                 }
                 else
                 {
-                    direction = new Vector2(120, 1000) - position;
+                    direction = new Vector2(-100, 500) - position;
                     direction.Normalize();
-                    position += direction * movementSpeed*0.5f;
+                    position += direction * movementSpeed * 0.5f;
                 }
                 
-                if(position.Y >= 900)
+                if(!GameWorld.ScreenSize.Intersects(CollisionBox))
                 {
-                    flee = false;
+                    flee = false;             
                 }
             }
 
@@ -466,22 +520,22 @@ namespace Build_It_Knuckles
         /// <param name="worker">The current Worker GameObject</param>
         private void ReactToResource(Worker worker)
         {
-            if (carryingGold)
-            {
-                GameWorld.ResourceGold.ResourceSemaphore.Release(); //Releases a spot inside the Gold Resource Semaphore
-            }
-            else if (carryingStone)
-            {
-                GameWorld.ResourceStone.ResourceSemaphore.Release(); //Releases a spot inside the Stone Resource Semaphore 
-            }
-            else if (carryingFood)
-            {
-                GameWorld.ResourceFood.ResourceSemaphore.Release(); //Releases a spot inside the Food Resource Semaphore 
-            }
-            else if (carryingLumber)
-            {
-                GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
-            }
+            //if (carryingGold)
+            //{
+            //    //Releases a spot inside the Gold Resource Semaphore
+            //}
+            //else if (carryingStone)
+            //{
+            //    GameWorld.ResourceStone.ResourceSemaphore.Release(); //Releases a spot inside the Stone Resource Semaphore 
+            //}
+            //else if (carryingFood)
+            //{
+            //    GameWorld.ResourceFood.ResourceSemaphore.Release(); //Releases a spot inside the Food Resource Semaphore 
+            //}
+            //else if (carryingLumber)
+            //{
+            //    GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
+            //}
 
             GameWorld.workerLeft = true; //Bool sets a value of true, in order to print text onto the screen, through draw method in gameworld
         }
@@ -492,27 +546,28 @@ namespace Build_It_Knuckles
         /// </summary>
         private void InsideResource()
         {
-            working = false;
-            if (miningGold)
-            {
-                GameWorld.ResourceGold.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Gold Semaphore has enough entries space
-                position = GameWorld.ResourceGold.Position;
-            }
-            else if (miningStone)
-            {
-                GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Stone Semaphore has enough entries space
-                position = GameWorld.ResourceStone.Position;
-            }
-            else if (gatheringFood)
-            {
-                GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Food Semaphore has enough entries space
-                position = GameWorld.ResourceFood.Position;
-            }
-            else if (choppingWood)
-            {
-                GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Lumber Semaphore has enough entries space
-                position = GameWorld.ResourceLumber.Position;
-            }
+            working = false;  
+
+            //if (miningGold)
+            //{
+            //    //Worker waits upon collision, to check if the Resource of Gold Semaphore has enough entries space
+                
+            //}
+            //else if (miningStone)
+            //{
+            //    GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Stone Semaphore has enough entries space
+            //    position = GameWorld.ResourceStone.Position;
+            //}
+            //else if (gatheringFood)
+            //{
+            //    GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Food Semaphore has enough entries space
+            //    position = GameWorld.ResourceFood.Position;
+            //}
+            //else if (choppingWood)
+            //{
+            //    GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Lumber Semaphore has enough entries space
+            //    position = GameWorld.ResourceLumber.Position;
+            //}
 
         }
 
@@ -559,11 +614,16 @@ namespace Build_It_Knuckles
 
                 InsideResource();
                 occupied = true;
-                if (occupied && !startWork)
-                {
-                    startWork = true;
-                    workingThread.Start();
-                }
+
+                workingThread = new Thread(EnterResource);
+                workingThread.IsBackground = true;
+                workingThread.Start();
+
+                //if (occupied && !startWork)
+                //{
+                //    startWork = true;
+                //    workingThread.Start();
+                //}
 
                 ignoreCollision = true;
             }
