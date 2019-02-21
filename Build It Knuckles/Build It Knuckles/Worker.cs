@@ -166,7 +166,7 @@ namespace Build_It_Knuckles
         /// </summary>
         public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 50;   //Worker Health / Patience before running away, is set to X as default
+            health = 250;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;   //Value is set false as default, since the instantiated Worker haven't reached/collided with a Resource type yet
             alive = true;   //Value is set true as default, since the Worker GameObject should be instantiated as alive
@@ -405,9 +405,8 @@ namespace Build_It_Knuckles
             }
             alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
-                GameWorld.workerLeft = true;
-            }
-
+            GameWorld.workerLeft = true;
+           
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
             fleeThread.Start();
@@ -426,16 +425,16 @@ namespace Build_It_Knuckles
                 {
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
-                    position += direction * movementSpeed*0.2f;
+                    position += direction * movementSpeed*0.4f;
                 }
                 else
                 {
-                    direction = new Vector2(120, 1000) - position;
+                    direction = new Vector2(-100, 500) - position;
                     direction.Normalize();
                     position += direction * movementSpeed*0.5f;
                 }
                 
-                if(position.Y >= 900)
+                if(!GameWorld.ScreenSize.Intersects(CollisionBox))
                 {
                     flee = false;
                 }
