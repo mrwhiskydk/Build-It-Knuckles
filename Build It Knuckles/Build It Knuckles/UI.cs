@@ -12,9 +12,16 @@ namespace Build_It_Knuckles
     /// </summary>
     public class UI : GameObjectPassive
     {
+        /// <summary>
+        /// Used for setting the position of Buy House Button's position, and its sprite's position on the UI
+        /// </summary>
         public static Vector2 buttonBuyHousePos;
 
+        /// <summary>
+        /// Used for setting the position of Buy Worker Button's position, and its sprite's position on the UI
+        /// </summary>
         public static Vector2 buttonBuyWorkerPos;
+
         /// <summary>
         /// UI's Constructor that sets the starting position and sprite of the UI GameObjectPassive
         /// </summary>
@@ -36,6 +43,11 @@ namespace Build_It_Knuckles
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Overriden Draw Method that sets the base functionality of the Draw Method (from the GameObject Class).
+        /// Also draws out various strings onto the UI GameObjectPassive.
+        /// </summary>
+        /// <param name="spriteBatch">The spritebatch which is used for drawing</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

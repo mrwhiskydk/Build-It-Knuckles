@@ -11,11 +11,31 @@ namespace Build_It_Knuckles
     /// </summary>
     public class House : GameObject
     {
+        /// <summary>
+        /// Sets the default cost amount of Gold, required to buy a House
+        /// </summary>
         public static int costGold = 50;
+
+        /// <summary>
+        /// Sets the default cost amount of Stone, required to buy a House
+        /// </summary>
         public static int costStone = 20;
+
+        /// <summary>
+        /// Sets the default cost amount of Lumber, required to buy a House
+        /// </summary>
         public static int costLumber = 30;
+
+        /// <summary>
+        /// Sets the current amount of House GameObjects, instantiated within the game 
+        /// </summary>
         public static int houses;
+
+        /// <summary>
+        /// Sets the maximum value amount of houses, currently able of being instantiated within the game
+        /// </summary>
         public static int housesMax = 4;
+
         private static int thx = (int)TownHall.pos.X;
         private static int thy = (int)TownHall.pos.Y;
         private static int xSpacing = 150;

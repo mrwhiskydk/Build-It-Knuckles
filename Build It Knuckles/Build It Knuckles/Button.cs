@@ -13,8 +13,6 @@ namespace Build_It_Knuckles
     public class Button : GameObject
     {
         
-
-
         /// <summary>
         /// Button's Constructor that sets the starting position and sprite name of the current Button GameObject
         /// </summary>
@@ -48,10 +46,13 @@ namespace Build_It_Knuckles
         }
     }
 
+    /// <summary>
+    /// Public Class that sets the default functionality and game logic of the ButtonBuyHoyse Button
+    /// </summary>
     public class ButtonBuyHouse : Button
     {
         /// <summary>
-        /// Constructor
+        /// ButtonBuyHouse's Constructor, that sets its default position, equal to the UI's buttonBuyHousePos' position, and sets its default sprite name
         /// </summary>
         public ButtonBuyHouse() : base(UI.buttonBuyHousePos, "iconhouse")
         {
@@ -59,7 +60,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Button has been pressed to build a house. First check if we have enough resources and if then build a house
+        /// Method that checks if Button has been pressed to build a house. First check if we have enough resources and if then build a house
         /// </summary>
         public override void Action()
         {
@@ -86,10 +87,13 @@ namespace Build_It_Knuckles
         }
     }
 
+    /// <summary>
+    /// Public Class that sets the default functionality and game logic of the ButtonBuyWorker Button
+    /// </summary>
     public class ButtonBuyWorker : Button
     {
         /// <summary>
-        /// Constructor
+        /// ButtonBuyWorker's Constructor, that sets its default position, equal to the UI's buttonBuyWorkerPos' position, and sets its default sprite name
         /// </summary>
         public ButtonBuyWorker() : base(UI.buttonBuyWorkerPos, "iconworker")
         {
@@ -97,7 +101,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Button has been pressed. Build a worker if we have enough resources and worker count less than max worker count
+        /// Method that checks if Button has been pressed. Build a worker if we have enough resources and worker count less than max worker count
         /// </summary>
         public override void Action()
         {

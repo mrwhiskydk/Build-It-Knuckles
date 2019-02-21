@@ -7,7 +7,8 @@ using System.Collections.Generic;
 namespace Build_It_Knuckles
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This Public Class is the main type of the game.
+    /// Various GameObjects are instantiated in the game, static variables of Classes are created for them to be used within other Classes and sets the overall functionality of the game.
     /// </summary>
     public class GameWorld : Game
     {
