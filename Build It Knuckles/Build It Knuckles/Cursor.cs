@@ -31,12 +31,6 @@ namespace Build_It_Knuckles
 
             oldMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-
-            /*if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                mouseFirstClick = true;
-            }*/
-
         }
 
         /// <summary>
