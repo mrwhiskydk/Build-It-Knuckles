@@ -11,6 +11,9 @@ namespace Build_It_Knuckles
     /// </summary>
     public class House : GameObject
     {
+        public static int costGold = 50;
+        public static int costStone = 20;
+        public static int costLumber = 30;
         public static int houses;
         public static int housesMax = 4;
         private static int thx = (int)TownHall.pos.X;
@@ -27,6 +30,9 @@ namespace Build_It_Knuckles
         {
             houses++;
             TownHall.population += 2;
+            costGold *= houses + 1;
+            costStone *=  houses + 1;
+            costLumber *= houses + 1;
         }
 
         /// <summary>

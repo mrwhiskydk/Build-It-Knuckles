@@ -67,8 +67,6 @@ namespace Build_It_Knuckles
         {
             base.DoCollision(otherObject);
 
-            /*oldMouseState = currentMouseState;
-            currentMouseState = Mouse.GetState();*/
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
                 if (otherObject is Button)
