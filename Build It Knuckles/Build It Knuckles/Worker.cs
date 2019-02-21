@@ -424,23 +424,7 @@ namespace Build_It_Knuckles
             {
                 GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
             }
-            
-            //while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
-            //{                
-            //    while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
-            //    {
-            //        ResourceAmount += 10;
-            //        Health -= 5;
-            //        Thread.Sleep(1000);
-
-            //        if (ResourceAmount >= 50)
-            //        {
-            //            occupied = false;
-
-            //        }
-
-            //    }
-            //}           
+                    
         }
 
         /// <summary>
