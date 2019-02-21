@@ -15,7 +15,6 @@ namespace Build_It_Knuckles
     {
 
         private MouseState oldMouseState, currentMouseState;
-        private bool mouseFirstClick;
 
         public Cursor() : base("Hand")
         {
@@ -32,12 +31,6 @@ namespace Build_It_Knuckles
 
             oldMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-
-            /*if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                mouseFirstClick = true;
-            }*/
-
         }
 
         /// <summary>
@@ -68,8 +61,6 @@ namespace Build_It_Knuckles
         {
             base.DoCollision(otherObject);
 
-            /*oldMouseState = currentMouseState;
-            currentMouseState = Mouse.GetState();*/
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
                 if (otherObject is Button)

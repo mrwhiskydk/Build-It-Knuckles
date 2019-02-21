@@ -12,6 +12,9 @@ namespace Build_It_Knuckles
     /// </summary>
     public class Button : GameObject
     {
+        
+
+
         /// <summary>
         /// Button's Constructor that sets the starting position and sprite name of the current Button GameObject
         /// </summary>
@@ -61,13 +64,12 @@ namespace Build_It_Knuckles
         public override void Action()
         {
             base.Action();
-            if (TownHall.gold >= 10 && TownHall.stone >= 25 && TownHall.lumber >= 25 && House.houses < House.housesMax)
+            if (TownHall.gold >= House.costGold && TownHall.stone >= House.costStone && TownHall.lumber >= House.costLumber && House.houses < House.housesMax)
             {
+                TownHall.gold -= House.costGold;
+                TownHall.stone -= House.costStone;
+                TownHall.lumber -= House.costLumber;
                 new House();
-
-                TownHall.gold -= 10;
-                TownHall.stone -= 25;
-                TownHall.lumber -= 25;
             }
         }
     }
@@ -91,8 +93,6 @@ namespace Build_It_Knuckles
 
             if (TownHall.gold >= 20 && TownHall.food >= 20 && Worker.workers < TownHall.population)
             {
-                
-
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
                 //change worker position for every new worker spawned so they dont spawn on top of each other

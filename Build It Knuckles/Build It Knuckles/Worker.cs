@@ -169,6 +169,7 @@ namespace Build_It_Knuckles
             workers++;
 
             DeadEvent += ReactToDead;   //Sets the ReactToDead Method, to take part of the event 'DeadEvent'
+            
 
             for (int i = 1; i <= 8; i++)
             {
