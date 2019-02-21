@@ -30,6 +30,8 @@ namespace Build_It_Knuckles
         {
             houses++;
             TownHall.population += 2;
+
+            //Double price of house after each built house
             costGold *= houses + 1;
             costStone *=  houses + 1;
             costLumber *= houses + 1;

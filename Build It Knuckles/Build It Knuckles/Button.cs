@@ -93,8 +93,6 @@ namespace Build_It_Knuckles
 
             if (TownHall.gold >= 20 && TownHall.food >= 20 && Worker.workers < TownHall.population)
             {
-                
-
                 TownHall.gold -= 20;
                 TownHall.food -= 20;
                 //change worker position for every new worker spawned so they dont spawn on top of each other
