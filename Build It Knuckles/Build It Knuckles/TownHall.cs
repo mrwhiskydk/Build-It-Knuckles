@@ -11,13 +11,34 @@ namespace Build_It_Knuckles
     /// </summary>
     public class TownHall : GameObject
     {
-
+        /// <summary>
+        /// Sets the value of current gold amount within the TownHall GameObject
+        /// </summary>
         public static int gold = 20;
+
+        /// <summary>
+        /// Sets the value of current stone amount within the TownHall GameObject
+        /// </summary>
         public static int stone = 0;
+
+        /// <summary>
+        /// Sets the value of current lumber amount within the TownHall GameObject
+        /// </summary>
         public static int lumber = 0;
+
+        /// <summary>
+        /// Sets the value of current food amount within the TownHall GameObject
+        /// </summary>
         public static int food = 20;
+
+        /// <summary>
+        /// Sets the value of current population amount
+        /// </summary>
         public static int population = 4;
 
+        /// <summary>
+        /// Sets the position of the TownHall GameObject
+        /// </summary>
         public static Vector2 pos = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);
 
         /// <summary>

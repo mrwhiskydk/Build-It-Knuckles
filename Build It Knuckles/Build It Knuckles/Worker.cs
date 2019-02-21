@@ -494,7 +494,7 @@ namespace Build_It_Knuckles
         /// in order to avoid issues of trying to create an already instantiated Thread and overall to avoid constant collision check, since Worker will be in Resource collision while Thread is alive.
         /// Also checks if Worker has collided with the TownHall GameObject, in order to add the value amount of worker Resources to the TownHall's resource values.
         /// </summary>
-        /// <param name="otherObject"></param>
+        /// <param name="otherObject">The other GameObject, that is being collided with</param>
         public override void DoCollision(GameObject otherObject)
         {
             base.DoCollision(otherObject);

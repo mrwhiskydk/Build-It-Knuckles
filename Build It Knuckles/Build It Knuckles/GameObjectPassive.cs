@@ -54,7 +54,7 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Empty
+        /// Enabled the GameObjectPassive to have game logic defined
         /// </summary>
         /// <param name="gameTime">Time elapsed since last call in the update</param>
         public virtual void Update(GameTime gameTime)

@@ -9,13 +9,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Build_It_Knuckles
 {
-    public delegate void BuyHouseHandler();
-
+    /// <summary>
+    /// Public Class that represents the default functionality and game logic of the Cursor GameObject
+    /// </summary>
     public class Cursor : GameObject
     {
 
         private MouseState oldMouseState, currentMouseState;
 
+        /// <summary>
+        /// Cursor's Constructor that sets the default name of it's current sprite
+        /// </summary>
         public Cursor() : base("Hand")
         {
 
@@ -57,6 +61,10 @@ namespace Build_It_Knuckles
             return false;
         }
 
+        /// <summary>
+        /// Overriden DoCollision Method, that checks if the Cursor GameObject has collided with another GameObject's CollisionBox.
+        /// </summary>
+        /// <param name="otherObject">The other GameObject, that is being collided with</param>
         public override void DoCollision(GameObject otherObject)
         {
             base.DoCollision(otherObject);

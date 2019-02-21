@@ -8,14 +8,31 @@ using System.Text;
 
 namespace Build_It_Knuckles
 {
+    /// <summary>
+    /// Public Class that sets the default functionality and game logic of most GameObjects within the game.
+    /// Default Methods of checking GameObject's collision and sprite drawing is instantiated in this Class
+    /// </summary>
     public class GameObject
     {
-
+        /// <summary>
+        /// Sets the sprite of current GameObject
+        /// </summary>
         protected Texture2D sprite;
+        /// <summary>
+        /// Sets the rotation amount of current GameObject's sprite
+        /// </summary>
         protected float rotation;
+        /// <summary>
+        /// Sets the position values of current GameObject, and used to set the Rectangle position of its CollisionBox
+        /// </summary>
         protected Vector2 position;
+        /// <summary>
+        /// Property that gets the position values of current GameObject
+        /// </summary>
         public Vector2 Position { get => position; }
-
+        /// <summary>
+        /// Used for loading sprite content, of current GameObject, into the game
+        /// </summary>
         protected ContentManager content;
 
         /// <summary>
@@ -62,7 +79,7 @@ namespace Build_It_Knuckles
         /// <summary>
         /// Constructor that sets the starting position of the GameObject
         /// </summary>
-        /// <param name="startPosition"></param>
+        /// <param name="startPosition">The starting position of current GameObject</param>
         /// <param name="spriteName">The name of the texture resource the should be used for the sprite</param>
         /// <exception cref="Microsoft.Xna.Framework.Content.ContentLoadException">Thrown if a matching texture cant be found for spriteName</exception>
         public GameObject(Vector2 startPosition, string spriteName)
