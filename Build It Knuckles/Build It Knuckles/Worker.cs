@@ -8,8 +8,7 @@ using System.Threading;
 
 namespace Build_It_Knuckles
 {
-    delegate void DeadEventhandler(Worker worker);
-    delegate void ResourceAmountEventHandler(Worker worker);
+    delegate void DeadEventHandler(Worker worker);
     
     /// <summary>
     /// Public Class that represents the default functionality and game logic of the Worker GameObject
@@ -106,10 +105,6 @@ namespace Build_It_Knuckles
             set
             {
                 resourceAmount = value;
-                if(resourceAmount >= 50)
-                {
-                    OnResourceEvent();
-                }
             }
         }
 
@@ -117,13 +112,7 @@ namespace Build_It_Knuckles
         /// Sets an event, for when current Worker GameObject "dies".
         /// This event is set to trigger, should health reach or go below 0, makes the current Worker run away, and is then removed from the game
         /// </summary>
-        private event DeadEventhandler DeadEvent;
-
-        /// <summary>
-        /// Sets an event, for letting the current Worker GameObject know, that it has left the current Resource Type. 
-        /// This event is set to trigger once the Worker reaches a specific amount of resources, Releasing the Workers spot in current Semaphore
-        /// </summary>
-        private event ResourceAmountEventHandler ResourceEvent;
+        private event DeadEventHandler DeadEvent;
 
         /// <summary>
         /// Thread that is instantiated through current Workers Constructor, set as a background thread and is set to Start when Worker collides with any
@@ -176,8 +165,7 @@ namespace Build_It_Knuckles
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;   //Value is set false as default, since the instantiated Worker haven't reached/collided with a Resource type yet
             alive = true;   //Value is set true as default, since the Worker GameObject should be instantiated as alive
-            /*workingThread = new Thread(EnterResource);*/  //Instantiates a workingThread onto current Worker. Takes in the EnterResource method as it's parameters
-            /*workingThread.IsBackground = true;*/  //the instantiated workingThread is set as a background Thread as default.
+
             workers++;
 
             DeadEvent += ReactToDead;   //Sets the ReactToDead Method, to take part of the event 'DeadEvent'
@@ -369,17 +357,6 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Method that checks if the event: 'ResourceEvent' is currently existing, and sets the event onto the current Worker GameObject if value is set true
-        /// </summary>
-        protected virtual void OnResourceEvent()
-        {
-            if(ResourceEvent != null)
-            {
-                ResourceEvent(this);
-            }
-        }
-
-        /// <summary>
         /// Method that handles the functionality of current workingThread. The Thread's lifeline is kept alive, until the Worker's health reaches 0.
         /// Also handles the functionality gathering resources and losing health every 1 second, until a resource value of 50 has been reached
         /// </summary>
@@ -388,26 +365,24 @@ namespace Build_It_Knuckles
 
             if (miningGold)
             {
-                GameWorld.ResourceGold.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Gold Semaphore has enough entries space
+                GameWorld.ResourceGold.ResourceSemaphore.WaitOne(); //Worker waits to check if the Resource of Gold Semaphore has enough entries space, in order to enter
                 position = GameWorld.ResourceGold.Position;                
             }
             else if (miningStone)
             {
-                GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Stone Semaphore has enough entries space
+                GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits to check if the Resource of Stone Semaphore has enough entries space, in order to enter
                 position = GameWorld.ResourceStone.Position;
             }
             else if (gatheringFood)
             {
-                GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Food Semaphore has enough entries space
+                GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits to check if the Resource of Food Semaphore has enough entries space, in order to enter
                 position = GameWorld.ResourceFood.Position;
             }
             else if (choppingWood)
             {
-                GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Lumber Semaphore has enough entries space
+                GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits to check if the Resource of Lumber Semaphore has enough entries space, in order to enter
                 position = GameWorld.ResourceLumber.Position;
             }
-
-            GameWorld.workerEnter = true;
 
             while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
             {
@@ -418,7 +393,6 @@ namespace Build_It_Knuckles
                 if (ResourceAmount >= 50)
                 {
                     occupied = false;
-
                 }
 
             }
@@ -439,23 +413,7 @@ namespace Build_It_Knuckles
             {
                 GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
             }
-            
-            //while (alive)   //Lifeline of the Thread is kept alive, as long as the health of current Worker is above a value of 0
-            //{                
-            //    while (occupied)    //Worker continues to gather resources and loses health every 1 second as long as its current resource amount is below a value of 50
-            //    {
-            //        ResourceAmount += 10;
-            //        Health -= 5;
-            //        Thread.Sleep(1000);
-
-            //        if (ResourceAmount >= 50)
-            //        {
-            //            occupied = false;
-
-            //        }
-
-            //    }
-            //}           
+                       
         }
 
         /// <summary>
@@ -472,9 +430,7 @@ namespace Build_It_Knuckles
                 occupied = false;
             }
 
-            alive = false;  //value of 'alive' is set false, which kills the current workingThread
-
-            GameWorld.workerLeft = true;
+            alive = false;  //value of 'alive' is set false, in order to let current Worker know, that it should not proceed it's routine between Resources and Townhall (Checking through WorkLoop Method) 
 
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
@@ -494,7 +450,7 @@ namespace Build_It_Knuckles
                 {
                     direction = GameWorld.townHall.Position - Position;
                     direction.Normalize();
-                    position += direction * movementSpeed*0.4f;
+                    position += direction * movementSpeed * 0.4f;
                 }
                 else
                 {
@@ -513,66 +469,10 @@ namespace Build_It_Knuckles
         }
 
         /// <summary>
-        /// Method that handles the functionality of checking which Resource type the current worker has left,
-        /// in order to release a spot in the Resource Semaphore, so that other Workers may take its place.
-        /// This Method is called through the event: 'Resource Event'
-        /// </summary>
-        /// <param name="worker">The current Worker GameObject</param>
-        private void ReactToResource(Worker worker)
-        {
-            //if (carryingGold)
-            //{
-            //    //Releases a spot inside the Gold Resource Semaphore
-            //}
-            //else if (carryingStone)
-            //{
-            //    GameWorld.ResourceStone.ResourceSemaphore.Release(); //Releases a spot inside the Stone Resource Semaphore 
-            //}
-            //else if (carryingFood)
-            //{
-            //    GameWorld.ResourceFood.ResourceSemaphore.Release(); //Releases a spot inside the Food Resource Semaphore 
-            //}
-            //else if (carryingLumber)
-            //{
-            //    GameWorld.ResourceLumber.ResourceSemaphore.Release(); //Releases a spot inside the Lumber Resource Semaphore
-            //}
-
-            GameWorld.workerLeft = true; //Bool sets a value of true, in order to print text onto the screen, through draw method in gameworld
-        }
-
-        /// <summary>
-        /// Method that sets the value of 'working' bool as false (since current worker has reached a Resource GameObject).
-        /// Also checks which type of Resource current Worker has been assigned to, in order to check and wait for the right Resource Semaphore to enter
-        /// </summary>
-        private void InsideResource()
-        {
-            working = false;  
-
-            //if (miningGold)
-            //{
-            //    //Worker waits upon collision, to check if the Resource of Gold Semaphore has enough entries space
-                
-            //}
-            //else if (miningStone)
-            //{
-            //    GameWorld.ResourceStone.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Stone Semaphore has enough entries space
-            //    position = GameWorld.ResourceStone.Position;
-            //}
-            //else if (gatheringFood)
-            //{
-            //    GameWorld.ResourceFood.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Food Semaphore has enough entries space
-            //    position = GameWorld.ResourceFood.Position;
-            //}
-            //else if (choppingWood)
-            //{
-            //    GameWorld.ResourceLumber.ResourceSemaphore.WaitOne(); //Worker waits upon collision, to check if the Resource of Lumber Semaphore has enough entries space
-            //    position = GameWorld.ResourceLumber.Position;
-            //}
-
-        }
-
-        /// <summary>
-        /// Collision Method, that checks wether or not the current Worker GameObject has collided with anohter GameObject's collision
+        /// Collision Method, that checks wether or not the current Worker GameObject has collided with anohter GameObject's collision.
+        /// Handles Worker collision with another Resource GameObject, to check what type on Resource it has collided with, in order for it to know which type of resource value it is currently gathering.
+        /// Method also creates a new Thread, which is kept alive through bool: 'occupied'. Thread is set as Background and is started upon collision.
+        /// Bool: 'ignoreCollision' is set true, for letting current Worker know, that it has already collided with an Resource, in order to avoid issues of trying to create an already instantiated Thread
         /// </summary>
         /// <param name="otherObject"></param>
         public override void DoCollision(GameObject otherObject)
@@ -612,18 +512,12 @@ namespace Build_It_Knuckles
                     carryingStone = false;
                 }
 
-                InsideResource();
+                working = false;
                 occupied = true;
 
-                workingThread = new Thread(EnterResource);
-                workingThread.IsBackground = true;
+                workingThread = new Thread(EnterResource); //Instantiates a workingThread onto current Worker. Takes in the EnterResource method as it's parameters
+                workingThread.IsBackground = true; //the instantiated workingThread is set as a background Thread as default.
                 workingThread.Start();
-
-                //if (occupied && !startWork)
-                //{
-                //    startWork = true;
-                //    workingThread.Start();
-                //}
 
                 ignoreCollision = true;
             }
