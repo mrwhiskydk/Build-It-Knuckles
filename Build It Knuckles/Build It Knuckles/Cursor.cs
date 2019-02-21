@@ -15,7 +15,6 @@ namespace Build_It_Knuckles
     {
 
         private MouseState oldMouseState, currentMouseState;
-        private bool mouseFirstClick;
 
         public Cursor() : base("Hand")
         {
