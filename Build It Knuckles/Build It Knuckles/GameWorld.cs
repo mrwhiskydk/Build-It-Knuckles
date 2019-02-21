@@ -114,13 +114,13 @@ namespace Build_It_Knuckles
             font18 = Content.Load<SpriteFont>("font18");
             font24 = Content.Load<SpriteFont>("font24");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            //map = Content.Load<Texture2D>("map");
+            map = Content.Load<Texture2D>("map");
             knuckles = new Worker();
             townHall = new TownHall();
-            ResourceGold = new Resource(new Vector2(400, 400));
-            ResourceStone = new Resource(new Vector2(750, 100));
-            ResourceFood = new Resource(new Vector2(1150, 100));
-            ResourceLumber = new Resource(new Vector2(1520, 400));
+            ResourceGold = new Resource(new Vector2(400, 400), "Gold");
+            ResourceStone = new Resource(new Vector2(750, 100), "world");
+            ResourceFood = new Resource(new Vector2(1150, 100), "");
+            ResourceLumber = new Resource(new Vector2(1520, 400), "outside");
 
 
             //UI stuff
@@ -197,9 +197,9 @@ namespace Build_It_Knuckles
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGreen);
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
-            //spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
             
             foreach (GameObject go in gameObjects)
             {

@@ -22,6 +22,14 @@ namespace Build_It_Knuckles
         public bool selected = false;
 
         /// <summary>
+        /// List of all the sound effects that can be randomly played when a worker gets selected
+        /// </summary>
+        private List<Sound> soundList = new List<Sound>();
+        private Random rnd = new Random();
+
+        private bool startWork = false;
+
+        /// <summary>
         /// Sets a starting position on the x-axis for the workers, that gets larger after each new worker, so the workers don't stack on eachother
         /// </summary>
         public static int workerPosX = 600;
@@ -153,7 +161,7 @@ namespace Build_It_Knuckles
         /// </summary>
         public Worker() : base(3, 10, new Vector2(workerPosX,300), "knuckles")
         {
-            health = 50;   //Worker Health / Patience before running away, is set to X as default
+            health = 250;   //Worker Health / Patience before running away, is set to X as default
             movementSpeed = 4; //Worker moving speed amount is set to X as default
             occupied = false;   //Value is set false as default, since the instantiated Worker haven't reached/collided with a Resource type yet
             alive = true;   //Value is set true as default, since the Worker GameObject should be instantiated as alive
@@ -161,6 +169,12 @@ namespace Build_It_Knuckles
             workers++;
 
             DeadEvent += ReactToDead;   //Sets the ReactToDead Method, to take part of the event 'DeadEvent'
+            ResourceEvent += ReactToResource;   //Sets the ReactToResource Method, to take part of the event 'ResourceEvent'
+
+            for (int i = 1; i <= 8; i++)
+            {
+                soundList.Add(new Sound("sound/worker" + i));
+            }
         }
 
         /// <summary>
@@ -184,6 +198,10 @@ namespace Build_It_Knuckles
                 miningStone = false;
                 choppingWood = false;
                 gatheringFood = false;
+
+                
+                int index = rnd.Next(0, 8);
+                soundList[index].Play();
             }
 
             if (selected && GameWorld.mouse.Click(GameWorld.ResourceGold))
@@ -436,12 +454,12 @@ namespace Build_It_Knuckles
                 }
                 else
                 {
-                    direction = new Vector2(120, 1000) - position;
+                    direction = new Vector2(-100, 500) - position;
                     direction.Normalize();
                     position += direction * movementSpeed * 0.5f;
                 }
                 
-                if(position.Y >= 900)
+                if(!GameWorld.ScreenSize.Intersects(CollisionBox))
                 {
                     flee = false;             
                 }

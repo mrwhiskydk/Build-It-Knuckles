@@ -15,16 +15,16 @@ namespace Build_It_Knuckles
         /// <summary>
         /// Semaphore Class that that contains & sets the initial and maximum amount of worker entries
         /// </summary>
-        public Semaphore ResourceSemaphore = new Semaphore(0, 3);
+        public Semaphore ResourceSemaphore = new Semaphore(3, 3);
 
         /// <summary>
         /// Resource's Constructor that sets the default starting position and sprite name of the current Resource GameObject
         /// </summary>
         /// <param name="startPosition">The default position of where the current Resource is set in the game, on the X and Y Axis</param>
         /// <param name="spriteName">The default name of the Resource sprite</param>
-        public Resource(Vector2 startposition) : base(startposition, "castle")
+        public Resource(Vector2 startposition, string spriteName) : base(startposition, spriteName)
         {
-            ResourceSemaphore.Release(3);   //As default, the Semaphore Releases 3 entries spots
+            //ResourceSemaphore.Release(3);   //As default, the Semaphore Releases 3 entries spots
         }
 
         /// <summary>
