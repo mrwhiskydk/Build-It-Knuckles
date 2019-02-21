@@ -142,6 +142,54 @@
 /processorParam:TextureFormat=Color
 /build:map.png
 
+#begin sound/worker1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker1.wav
+
+#begin sound/worker2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker2.wav
+
+#begin sound/worker3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker3.wav
+
+#begin sound/worker4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker4.wav
+
+#begin sound/worker5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker5.wav
+
+#begin sound/worker6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker6.wav
+
+#begin sound/worker7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker7.wav
+
+#begin sound/worker8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/worker8.wav
+
 #begin townhall.png
 /importer:TextureImporter
 /processor:TextureProcessor

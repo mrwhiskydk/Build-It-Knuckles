@@ -22,6 +22,12 @@ namespace Build_It_Knuckles
         /// </summary>
         public bool selected = false;
 
+        /// <summary>
+        /// List of all the sound effects that can be randomly played when a worker gets selected
+        /// </summary>
+        private List<Sound> soundList = new List<Sound>();
+        private Random rnd = new Random();
+
         private bool startWork = false;
 
         /// <summary>
@@ -176,6 +182,11 @@ namespace Build_It_Knuckles
 
             DeadEvent += ReactToDead;   //Sets the ReactToDead Method, to take part of the event 'DeadEvent'
             ResourceEvent += ReactToResource;   //Sets the ReactToResource Method, to take part of the event 'ResourceEvent'
+
+            for (int i = 1; i <= 8; i++)
+            {
+                soundList.Add(new Sound("sound/worker" + i));
+            }
         }
 
         /// <summary>
@@ -199,6 +210,10 @@ namespace Build_It_Knuckles
                 miningStone = false;
                 choppingWood = false;
                 gatheringFood = false;
+
+                
+                int index = rnd.Next(0, 8);
+                soundList[index].Play();
             }
 
             if (selected && GameWorld.mouse.Click(GameWorld.ResourceGold))
@@ -405,8 +420,7 @@ namespace Build_It_Knuckles
             }
             alive = false;  //value of 'alive' is set false, which kills the current workingThread
 
-                GameWorld.workerLeft = true;
-            }
+            GameWorld.workerLeft = true;
 
             Thread fleeThread = new Thread(WorkerFleeing);
             fleeThread.IsBackground = true;
