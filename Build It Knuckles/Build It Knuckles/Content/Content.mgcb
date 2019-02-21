@@ -70,7 +70,7 @@
 /processorParam:TextureFormat=Compressed
 /build:font24.spritefont
 
-#begin Gold.png
+#begin food.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -80,7 +80,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Gold.png
+/build:food.png
+
+#begin gold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gold.png
 
 #begin Hand.png
 /importer:TextureImporter
@@ -142,6 +154,18 @@
 /processorParam:TextureFormat=Color
 /build:knuckles.png
 
+#begin lumber.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lumber.png
+
 #begin map.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -202,6 +226,18 @@
 /processorParam:Quality=Best
 /build:sound/worker8.wav
 
+#begin stone.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:stone.png
+
 #begin townhall.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -225,16 +261,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI.png
-
-#begin world.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:world.png
 
